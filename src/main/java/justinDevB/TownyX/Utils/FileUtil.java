@@ -24,7 +24,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * Create a YAML file 
+	 * Create a YAML file
 	 * @param name of the file
 	 */
 	private static void createYaml(String name) {
