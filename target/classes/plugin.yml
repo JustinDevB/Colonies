@@ -1,0 +1,9 @@
+name: TownyX
+main: justinDevB.TownyX.TownyX
+version: 0.0.1-SNAPSHOT
+author: Justin
+api-version: 1.15
+commands:
+  townyx:
+    description: TownyX base command
+    aliases: [towny] 

@@ -1,0 +1,9 @@
+name: ${project.artifactId}
+main: ${mainClass}
+version: ${project.version}
+author: ${author}
+api-version: 1.15
+commands:
+  townyx:
+    description: TownyX base command
+    aliases: [towny] 
