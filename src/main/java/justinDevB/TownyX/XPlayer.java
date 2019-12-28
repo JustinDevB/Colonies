@@ -1,7 +1,9 @@
 package justinDevB.TownyX;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import justinDevB.TownyX.Events.PlayerRegisterEvent;
 
 public class XPlayer {
 
@@ -12,6 +14,17 @@ public class XPlayer {
 	public XPlayer(TownyX tx, Player p) {
 		this.townyx = tx;
 		this.player = p;
+
+		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p, tx.getXPlayer(p.getUniqueId()));
+		Bukkit.getPluginManager().callEvent(registerEvent);
+	}
+
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	public String getName() {
+		return getPlayer().getName();
 	}
 
 	public enum Rank {
@@ -31,7 +44,7 @@ public class XPlayer {
 	public void setRank(Rank rank) {
 		this.rank = rank;
 	}
-	
+
 	public boolean hasRank(Rank rank) {
 		if (getRank().value >= rank.value)
 			return true;
