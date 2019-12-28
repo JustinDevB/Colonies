@@ -54,12 +54,12 @@ public class TownyX extends JavaPlugin {
 	 * better way for loading
 	 */
 	private void initObjects() {
-		new FileUtil(this);
+		FileUtil fUtil = new FileUtil(this);
 		new Settings(this);
 
 		InputStream is = getResource("Messages.yml");
 		try {
-			FileUtil.getFileUtil().copyInputStreamToFile(is, FileUtil.getFileUtil().getYamlFile("Messages").getFile());
+			fUtil.copyInputStreamToFile(is, fUtil.getYamlFile("Messages").getFile());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
