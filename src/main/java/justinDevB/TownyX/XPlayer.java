@@ -2,7 +2,6 @@ package justinDevB.TownyX;
 
 import org.bukkit.entity.Player;
 
-
 public class XPlayer {
 
 	private final TownyX townyx;
@@ -12,6 +11,14 @@ public class XPlayer {
 	public XPlayer(TownyX tx, Player p) {
 		this.townyx = tx;
 		this.player = p;
+	}
+
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	public String getName() {
+		return getPlayer().getName();
 	}
 
 	public enum Rank {
@@ -31,7 +38,7 @@ public class XPlayer {
 	public void setRank(Rank rank) {
 		this.rank = rank;
 	}
-	
+
 	public boolean hasRank(Rank rank) {
 		if (getRank().value >= rank.value)
 			return true;

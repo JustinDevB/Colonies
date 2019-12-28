@@ -1,7 +1,6 @@
 package justinDevB.TownyX.Utils;
 
 import de.leonhard.storage.Yaml;
-import justinDevB.TownyX.TownyX;
 
 public class Messages {
 	private static Yaml messages = Settings.getMessages();
