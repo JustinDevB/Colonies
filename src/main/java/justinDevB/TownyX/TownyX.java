@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import justinDevB.TownyX.Exceptions.FileSaveException;
+import justinDevB.TownyX.Hooks.VaultHook;
 import justinDevB.TownyX.Listeners.LoginListener;
 import justinDevB.TownyX.Utils.FileUtil;
 import justinDevB.TownyX.Utils.Messages;
@@ -33,6 +35,8 @@ public class TownyX extends JavaPlugin {
 		initMondoCommand();
 
 		initListeners();
+
+		initVault();
 
 	}
 
@@ -85,19 +89,30 @@ public class TownyX extends JavaPlugin {
 
 	/**
 	 * Return list of every online player in HashMap
+	 * 
 	 * @return hashmap of online players
 	 */
 	public HashMap<UUID, XPlayer> getXPlayers() {
 		return this.xPlayers;
 	}
-	
+
 	/**
 	 * Get a Player
+	 * 
 	 * @param uuid of player
 	 * @return instance of specific XPlayer
 	 */
 	public XPlayer getXPlayer(UUID uuid) {
 		return getXPlayers().get(uuid);
+	}
+
+	private void initVault() {
+		if (getServer().getPluginManager().getPlugin("Vault") != null)
+			new VaultHook(this);
+		else {
+			Bukkit.getLogger().log(Level.SEVERE, "Vault not found! Disabling plugin...");
+			getServer().getPluginManager().disablePlugin(this);
+		}
 	}
 
 }
