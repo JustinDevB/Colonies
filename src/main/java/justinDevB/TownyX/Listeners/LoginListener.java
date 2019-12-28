@@ -22,7 +22,12 @@ public class LoginListener implements Listener {
 		final XPlayer xPlayer = new XPlayer(townyx, event.getPlayer());
 		townyx.getXPlayers().put(event.getPlayer().getUniqueId(), xPlayer);
 		
+<<<<<<< HEAD
 		
+=======
+		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(event.getPlayer(), xPlayer);
+		Bukkit.getPluginManager().callEvent(registerEvent);
+>>>>>>> ff320a63ab31bec77efe7f24a4f7bbba3f39d134
 	}
 
 }

@@ -3,8 +3,11 @@ package justinDevB.TownyX;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+<<<<<<< HEAD
 import justinDevB.TownyX.Events.PlayerRegisterEvent;
 
+=======
+>>>>>>> ff320a63ab31bec77efe7f24a4f7bbba3f39d134
 public class XPlayer {
 
 	private final TownyX townyx;
@@ -17,6 +20,14 @@ public class XPlayer {
 
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p, tx.getXPlayer(p.getUniqueId()));
 		Bukkit.getPluginManager().callEvent(registerEvent);
+	}
+
+	public Player getPlayer() {
+		return this.player;
+	}
+
+	public String getName() {
+		return getPlayer().getName();
 	}
 
 	public Player getPlayer() {
