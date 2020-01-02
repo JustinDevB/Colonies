@@ -10,9 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import justinDevB.TownyX.Commands.Commands;
 import justinDevB.TownyX.Exceptions.FileSaveException;
 import justinDevB.TownyX.Hooks.VaultHook;
-import justinDevB.TownyX.Listeners.LoginListener;
+import justinDevB.TownyX.Listeners.BukkitEventListener;
 import justinDevB.TownyX.Utils.FileUtil;
 import justinDevB.TownyX.Utils.Messages;
 import justinDevB.TownyX.Utils.Settings;
@@ -22,7 +23,8 @@ public class TownyX extends JavaPlugin {
 
 	private HashMap<UUID, XPlayer> xPlayers = new HashMap<UUID, XPlayer>();
 	private static TownyX instance = null;
-	public MondoCommand mcmd;
+	private MondoCommand mcmd;
+	private Mode mode;
 
 	@Override
 	public void onEnable() {
@@ -38,6 +40,8 @@ public class TownyX extends JavaPlugin {
 
 		initVault();
 
+		loadMode();
+
 	}
 
 	@Override
@@ -49,6 +53,11 @@ public class TownyX extends JavaPlugin {
 		}
 	}
 
+	/**
+	 * Get TownyX Singleton instance
+	 * 
+	 * @return singleton
+	 */
 	public static TownyX getInstance() {
 		return instance;
 	}
@@ -75,7 +84,7 @@ public class TownyX extends JavaPlugin {
 	 */
 	private void initMondoCommand() {
 		mcmd = new MondoCommand();
-		mcmd.autoRegisterFrom(new justinDevB.TownyX.Commands.Commands(this));
+		mcmd.autoRegisterFrom(new Commands(this));
 		getCommand("townyx").setExecutor(mcmd);
 	}
 
@@ -84,13 +93,13 @@ public class TownyX extends JavaPlugin {
 	 */
 	private void initListeners() {
 		PluginManager pm = Bukkit.getPluginManager();
-		pm.registerEvents(new LoginListener(this), this);
+		pm.registerEvents(new BukkitEventListener(this), this);
 	}
 
 	/**
 	 * Return list of every online player in HashMap
 	 * 
-	 * @return hashmap of online players
+	 * @return HashMap of online players
 	 */
 	public HashMap<UUID, XPlayer> getXPlayers() {
 		return this.xPlayers;
@@ -106,6 +115,9 @@ public class TownyX extends JavaPlugin {
 		return getXPlayers().get(uuid);
 	}
 
+	/**
+	 * Hook into VaultAPI
+	 */
 	private void initVault() {
 		if (getServer().getPluginManager().getPlugin("Vault") != null)
 			new VaultHook(this);
@@ -113,6 +125,25 @@ public class TownyX extends JavaPlugin {
 			Bukkit.getLogger().log(Level.SEVERE, "Vault not found! Disabling plugin...");
 			getServer().getPluginManager().disablePlugin(this);
 		}
+	}
+
+	public enum Mode {
+		NORMAL, DEBUG;
+	}
+
+	public Mode getMode() {
+		return this.mode;
+	}
+
+	public void setMode(Mode m) {
+		this.mode = m;
+	}
+
+	private void loadMode() {
+		if (Settings.isDebug())
+			setMode(Mode.DEBUG);
+		else
+			setMode(Mode.NORMAL);
 	}
 
 }

@@ -8,7 +8,7 @@ import justinDevB.TownyX.TownyX;
 public class Settings {
 	
 	private static FileConfiguration config;
-	public static boolean isDebug = false;
+	private static boolean isDebug = false;
 	private static Yaml messages;
 	private FileUtil fUtil;
 	
@@ -26,7 +26,7 @@ public class Settings {
 		
 	}
 	
-	public static boolean getDebug() {
+	public static boolean isDebug() {
 		return isDebug;
 	}
 	

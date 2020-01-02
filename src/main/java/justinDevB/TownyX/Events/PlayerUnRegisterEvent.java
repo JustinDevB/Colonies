@@ -8,17 +8,16 @@ import org.bukkit.event.HandlerList;
 
 import justinDevB.TownyX.TownyX;
 import justinDevB.TownyX.TownyX.Mode;
-import justinDevB.TownyX.XPlayer;
 import justinDevB.TownyX.Utils.Settings;
 
-public class PlayerRegisterEvent extends Event {
+public class PlayerUnRegisterEvent extends Event {
 
 	private Player player;
-	private XPlayer xPlayer;
 
-	public PlayerRegisterEvent(Player p) {
+	public PlayerUnRegisterEvent(Player p) {
 		this.player = p;
 		debug();
+
 	}
 
 	private static final HandlerList HANDLERS = new HandlerList();
@@ -32,26 +31,18 @@ public class PlayerRegisterEvent extends Event {
 	}
 
 	/**
-	 * Get the registered player
+	 * Player that is UnRegistered
 	 * 
-	 * @return player
+	 * @return Player
 	 */
 	public Player getPlayer() {
 		return this.player;
 	}
 
-	/**
-	 * Get the XPlayer object of Player
-	 * 
-	 * @return xPlayer
-	 */
-	public XPlayer getXPlayer() {
-		return this.xPlayer;
-	}
-
 	private void debug() {
-		if (TownyX.getInstance().getMode() == Mode.DEBUG)
-			TownyX.getInstance().getLogger().log(Level.INFO, "Registering player " + getPlayer().getName());
+		if (TownyX.getInstance().getMode() == Mode.DEBUG) {
+			TownyX.getInstance().getLogger().log(Level.INFO, "De-Registering Player: " + getPlayer().getName());
+		}
 	}
 
 }

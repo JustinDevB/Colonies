@@ -17,7 +17,7 @@ public class XPlayer {
 		this.townyx = tx;
 		this.player = p;
 
-		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p, tx.getXPlayer(p.getUniqueId()));
+		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(registerEvent);
 	}
 
