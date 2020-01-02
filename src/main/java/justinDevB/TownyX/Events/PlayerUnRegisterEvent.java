@@ -40,8 +40,9 @@ public class PlayerUnRegisterEvent extends Event {
 	}
 
 	private void debug() {
-		if (TownyX.getInstance().getMode() == Mode.DEBUG) {
-			TownyX.getInstance().getLogger().log(Level.INFO, "De-Registering Player: " + getPlayer().getName());
+		TownyX townyx = TownyX.getInstance();
+		if (townyx.getMode() == Mode.DEBUG) {
+			townyx.getLogger().log(Level.INFO, "De-Registering Player: " + getPlayer().getName());
 		}
 	}
 
