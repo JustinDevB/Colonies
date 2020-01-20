@@ -32,7 +32,11 @@ public class TownyX extends JavaPlugin {
 
 		saveDefaultConfig();
 
-		initObjects();
+		try {
+			initObjects();
+		} catch (FileSaveException e) {
+			e.printStackTrace();
+		}
 
 		initMondoCommand();
 
@@ -65,8 +69,10 @@ public class TownyX extends JavaPlugin {
 	/**
 	 * Load Objects in a very specific order AKA do not touch until I figure out a
 	 * better way for loading
+	 * 
+	 * @throws FileSaveException
 	 */
-	private void initObjects() {
+	private void initObjects() throws FileSaveException {
 		FileUtil fUtil = new FileUtil(this);
 		new Settings(this);
 

@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.leonhard.storage.Json;
-import de.leonhard.storage.ReloadSettings;
 import de.leonhard.storage.Yaml;
+import de.leonhard.storage.internal.settings.ReloadSettings;
 import justinDevB.TownyX.TownyX;
 import justinDevB.TownyX.Exceptions.FileSaveException;
 
@@ -45,7 +45,7 @@ public class FileUtil {
 	public void createYaml(String name) {
 		Yaml yaml = new Yaml(name, townyx.getDataFolder().toString());
 		yamlFiles.put(name, yaml);
-		yaml.setReloadSettings(ReloadSettings.intelligent);
+		yaml.setReloadSettings(ReloadSettings.INTELLIGENT);
 	}
 
 	/**
@@ -77,10 +77,10 @@ public class FileUtil {
 	public void saveFile(String name) throws FileSaveException {
 		if (jsonFiles.containsKey(name)) {
 			Json json = jsonFiles.get(name);
-			json.update();
+			json.write();
 		} else if (yamlFiles.containsKey(name)) {
 			Yaml yml = yamlFiles.get(name);
-			yml.update();
+			 yml.write();
 		}
 	}
 
@@ -115,10 +115,10 @@ public class FileUtil {
 	 */
 	public void onDisable() throws FileSaveException {
 		for (Map.Entry<String, Json> entry : jsonFiles.entrySet())
-			entry.getValue().update();
+			entry.getValue().write();
 		jsonFiles.clear();
 		for (Map.Entry<String, Yaml> entry : yamlFiles.entrySet())
-			entry.getValue().update();
+			entry.getValue().write();
 		yamlFiles.clear();
 
 	}
