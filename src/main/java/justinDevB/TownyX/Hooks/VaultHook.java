@@ -2,6 +2,7 @@ package justinDevB.TownyX.Hooks;
 
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -28,9 +29,17 @@ public class VaultHook {
 		if (isDebug)
 			townyx.getLogger().log(Level.INFO, "Initializing Vault Hook...");
 
-		setupEconomy();
+		if (!setupEconomy()) {
+			townyx.getLogger().log(Level.SEVERE, "Failed to hook into economy, shutting down...");
+			Bukkit.getPluginManager().disablePlugin(townyx);
+		}
+
 		setupChat();
 		setupPermissions();
+
+		if (isDebug) {
+			townyx.getLogger().log(Level.INFO, "Successfully hooked into Vault!");
+		}
 	}
 
 	private boolean setupEconomy() {
