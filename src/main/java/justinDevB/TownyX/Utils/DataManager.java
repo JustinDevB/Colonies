@@ -23,5 +23,10 @@ public class DataManager {
 
 		yml.write();
 	}
+	
+	
+	public static void saveTownList() {
+		
+	}
 
 }

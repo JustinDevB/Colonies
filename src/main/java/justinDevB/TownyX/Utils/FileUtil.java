@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,7 +82,7 @@ public class FileUtil {
 			json.write();
 		} else if (yamlFiles.containsKey(name)) {
 			Yaml yml = yamlFiles.get(name);
-			 yml.write();
+			yml.write();
 		}
 	}
 
@@ -90,8 +92,9 @@ public class FileUtil {
 
 	/**
 	 * Convert Spigot Resources into Files
+	 * 
 	 * @param inputStream to transform into file
-	 * @param file to receive inputStream data
+	 * @param file        to receive inputStream data
 	 * @throws IOException
 	 */
 	public void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
@@ -110,7 +113,22 @@ public class FileUtil {
 	}
 
 	/**
+	 * Save an Array to a file
+	 * @param arrayList
+	 * @param filename
+	 * @throws IOException
+	 */
+	public static void printArrayListToFile(ArrayList<String> arrayList, String filename) throws IOException {
+		PrintWriter writer = new PrintWriter(filename);
+		for (String line : arrayList) {
+			writer.println(line);
+		}
+		writer.close();
+	}
+
+	/**
 	 * Save all Files and remove from Map
+	 * 
 	 * @throws FileSaveException
 	 */
 	public void onDisable() throws FileSaveException {

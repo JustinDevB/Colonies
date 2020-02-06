@@ -2,6 +2,7 @@ package justinDevB.TownyX;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import justinDevB.mondocommand.MondoCommand;
 public class TownyX extends JavaPlugin {
 
 	private HashMap<UUID, XPlayer> xPlayers = new HashMap<UUID, XPlayer>();
+	private ArrayList<String> towns = new ArrayList<>();
 	private static TownyX instance = null;
 	private MondoCommand mcmd;
 	private Mode mode;
@@ -83,6 +85,7 @@ public class TownyX extends JavaPlugin {
 			e.printStackTrace();
 		}
 		new Messages();
+		
 	}
 
 	/**
@@ -133,6 +136,12 @@ public class TownyX extends JavaPlugin {
 		}
 	}
 
+	/**
+	 * Plugin Operating Mode
+	 * @author Justin
+	 * @modes NORMAL, DEBUG
+	 *
+	 */
 	public enum Mode {
 		NORMAL, DEBUG;
 	}

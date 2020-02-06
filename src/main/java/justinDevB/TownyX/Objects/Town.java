@@ -10,6 +10,7 @@ public class Town {
 	public Town(String name, XPlayer mayor) {
 		this.townName = name;
 		this.mayor = mayor;
+		this.loadTown();
 	}
 
 	public Town(String name) {
@@ -22,6 +23,10 @@ public class Town {
 	
 	public XPlayer getMayor() {
 		return this.mayor;
+	}
+	
+	private void loadTown() {
+		
 	}
 
 }
