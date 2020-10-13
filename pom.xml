@@ -48,6 +48,13 @@
 			<version>1.7</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.aerenserve</groupId>
+			<artifactId>minesqlapi</artifactId>
+			<version>1.3</version>
+			<scope>system</scope>
+			<systemPath>C:\Users\Justin\Downloads\MineSQL.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>

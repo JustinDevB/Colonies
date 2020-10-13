@@ -15,6 +15,7 @@ import justinDevB.TownyX.Commands.Commands;
 import justinDevB.TownyX.Exceptions.FileSaveException;
 import justinDevB.TownyX.Hooks.VaultHook;
 import justinDevB.TownyX.Listeners.BukkitEventListener;
+import justinDevB.TownyX.Utils.DatabaseUtil;
 import justinDevB.TownyX.Utils.FileUtil;
 import justinDevB.TownyX.Utils.Messages;
 import justinDevB.TownyX.Utils.Settings;
@@ -47,6 +48,8 @@ public class TownyX extends JavaPlugin {
 		initVault();
 
 		loadMode();
+		
+		DatabaseUtil.init(this);
 
 	}
 
