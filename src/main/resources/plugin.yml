@@ -5,5 +5,5 @@ author: ${author}
 api-version: 1.15
 commands:
   townyx:
-    description: TownyX base command
-    aliases: [towny] 
+    description: townyx base command
+    aliases: [towny]

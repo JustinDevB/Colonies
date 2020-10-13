@@ -3,8 +3,8 @@ package justinDevB.TownyX.Commands;
 import justinDevB.TownyX.TownyX;
 import justinDevB.TownyX.XPlayer.Rank;
 import justinDevB.TownyX.Utils.Messages;
-import justinDevB.mondocommand.CallInfo;
 import justinDevB.mondocommand.dynmaic.Sub;
+import justinDevB.mondocommand.CallInfo;
 import net.md_5.bungee.api.ChatColor;
 
 public class Commands {

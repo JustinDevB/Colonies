@@ -1,5 +1,7 @@
 package justinDevB.mondocommand;
 
+import justinDevB.mondocommand.CallInfo;
+
 /**
  * Interface for implementing sub command handlers.
  * @author James Crasta

@@ -7,6 +7,10 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import justinDevB.mondocommand.ChatMagic;
+import justinDevB.mondocommand.FormatConfig;
+import justinDevB.mondocommand.SubCommand;
+
 /**
  * Represents all the arguments that go along with a call.
  * @author James Crasta
