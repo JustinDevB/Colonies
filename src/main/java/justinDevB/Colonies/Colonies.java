@@ -2,15 +2,11 @@ package justinDevB.Colonies;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,8 +23,6 @@ import justinDevB.mondocommand.MondoCommand;
 public class Colonies extends JavaPlugin {
 
 	private HashMap<UUID, Citizen> citizens = new HashMap<UUID, Citizen>();
-	private ArrayList<String> towns = new ArrayList<>();
-	private Set<Chunk> allClaims = new HashSet<>();
 	private static Colonies instance = null;
 	private MondoCommand mcmd;
 	private Mode mode;
@@ -117,7 +111,7 @@ public class Colonies extends JavaPlugin {
 	 * 
 	 * @return HashMap of online players
 	 */
-	public HashMap<UUID, Citizen> getXPlayers() {
+	public HashMap<UUID, Citizen> getCitizens() {
 		return this.citizens;
 	}
 
@@ -127,8 +121,8 @@ public class Colonies extends JavaPlugin {
 	 * @param uuid of player
 	 * @return instance of specific Citizen
 	 */
-	public Citizen getXPlayer(UUID uuid) {
-		return getXPlayers().get(uuid);
+	public Citizen getCitizen(UUID uuid) {
+		return getCitizens().get(uuid);
 	}
 
 	/**

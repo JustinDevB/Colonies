@@ -11,12 +11,12 @@ import justinDevB.Colonies.Hooks.VaultHook;
 
 public class Citizen {
 
-	private final Colonies townyx;
+	private final Colonies colonies;
 	private final Player player;
 	private Rank rank = Rank.PLAYER;
 
-	public Citizen(Colonies tx, Player p) {
-		this.townyx = tx;
+	public Citizen(Colonies cl, Player p) {
+		this.colonies = cl;
 		this.player = p;
 
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
