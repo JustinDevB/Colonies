@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
 import justinDevB.Colonies.Hooks.VaultHook;
 
-public class XPlayer {
+public class Citizen {
 
 	private final Colonies townyx;
 	private final Player player;
 	private Rank rank = Rank.PLAYER;
 
-	public XPlayer(Colonies tx, Player p) {
+	public Citizen(Colonies tx, Player p) {
 		this.townyx = tx;
 		this.player = p;
 
@@ -36,7 +36,7 @@ public class XPlayer {
 	}
 
 	/**
-	 * Return Vault balance of XPlayer
+	 * Return Vault balance of Citizen
 	 * 
 	 * @return balance
 	 */

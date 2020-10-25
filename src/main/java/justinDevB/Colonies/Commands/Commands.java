@@ -2,9 +2,12 @@ package justinDevB.Colonies.Commands;
 
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Utils.Messages;
-import justinDevB.Colonies.XPlayer.Rank;
+import justinDevB.Colonies.Citizen.Rank;
+import justinDevB.Colonies.ClaimManager;
+
 import justinDevB.mondocommand.dynmaic.Sub;
 import justinDevB.mondocommand.CallInfo;
+
 import net.md_5.bungee.api.ChatColor;
 
 public class Commands {
@@ -23,5 +26,10 @@ public class Commands {
 	@Sub(rank = Rank.ADMIN, description = "Info command", allowConsole = true)
 	public void info(CallInfo call) {
 		call.reply(ChatColor.GREEN + "Mode: " + ChatColor.GOLD + townyx.getMode());
+	}
+	
+	@Sub(rank = Rank.ADMIN, description = "Check if singleton is loaded, allowConsole = true")
+	public void testCall(CallInfo call) {
+		ClaimManager.getInstance().testFunction();
 	}
 }

@@ -7,14 +7,14 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.XPlayer;
+import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Colonies.Mode;
 import justinDevB.Colonies.Utils.Settings;
 
 public class PlayerRegisterEvent extends Event {
 
 	private Player player;
-	private XPlayer xPlayer;
+	private Citizen citizen;
 
 	public PlayerRegisterEvent(Player p) {
 		this.player = p;
@@ -41,12 +41,12 @@ public class PlayerRegisterEvent extends Event {
 	}
 
 	/**
-	 * Get the XPlayer object of Player
+	 * Get the Citizen object of Player
 	 * 
-	 * @return xPlayer
+	 * @return citizen
 	 */
-	public XPlayer getXPlayer() {
-		return this.xPlayer;
+	public Citizen getXPlayer() {
+		return this.citizen;
 	}
 
 	private void debug() {

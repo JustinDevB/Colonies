@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.XPlayer;
+import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Events.PlayerUnRegisterEvent;
 
 public class BukkitEventListener implements Listener {
@@ -21,8 +21,8 @@ public class BukkitEventListener implements Listener {
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		final XPlayer xPlayer = new XPlayer(townyx, event.getPlayer());
-		townyx.getXPlayers().put(event.getPlayer().getUniqueId(), xPlayer);
+		final Citizen citizen = new Citizen(townyx, event.getPlayer());
+		townyx.getXPlayers().put(event.getPlayer().getUniqueId(), citizen);
 	}
 
 	@EventHandler

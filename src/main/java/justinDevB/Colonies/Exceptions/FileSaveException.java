@@ -2,7 +2,7 @@ package justinDevB.Colonies.Exceptions;
 
 import justinDevB.Colonies.Utils.Messages;
 
-public class FileSaveException extends Exception  {
+public class FileSaveException extends ColonyException  {
 	
 	/**
 	 * Error that is thrown when a file fails to save

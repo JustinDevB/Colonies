@@ -4,6 +4,6 @@ version: ${project.version}
 author: ${author}
 api-version: 1.15
 commands:
-  townyx:
-    description: townyx base command
-    aliases: [towny]
+  colonies:
+    description: colonies base command
+    aliases: [colonies]

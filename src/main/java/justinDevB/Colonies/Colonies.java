@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,8 +26,9 @@ import justinDevB.mondocommand.MondoCommand;
 
 public class Colonies extends JavaPlugin {
 
-	private HashMap<UUID, XPlayer> xPlayers = new HashMap<UUID, XPlayer>();
+	private HashMap<UUID, Citizen> citizens = new HashMap<UUID, Citizen>();
 	private ArrayList<String> towns = new ArrayList<>();
+	private Set<Chunk> allClaims = new HashSet<>();
 	private static Colonies instance = null;
 	private MondoCommand mcmd;
 	private Mode mode;
@@ -45,11 +49,11 @@ public class Colonies extends JavaPlugin {
 
 		initListeners();
 
-		initVault();
+		//initVault();
 
 		loadMode();
 		
-		DatabaseUtil.init(this);
+		//DatabaseUtil.init(this);
 
 	}
 
@@ -97,7 +101,7 @@ public class Colonies extends JavaPlugin {
 	private void initMondoCommand() {
 		mcmd = new MondoCommand();
 		mcmd.autoRegisterFrom(new Commands(this));
-		getCommand("townyx").setExecutor(mcmd);
+		getCommand("colonies").setExecutor(mcmd);
 	}
 
 	/**
@@ -113,17 +117,17 @@ public class Colonies extends JavaPlugin {
 	 * 
 	 * @return HashMap of online players
 	 */
-	public HashMap<UUID, XPlayer> getXPlayers() {
-		return this.xPlayers;
+	public HashMap<UUID, Citizen> getXPlayers() {
+		return this.citizens;
 	}
 
 	/**
 	 * Get a Player
 	 * 
 	 * @param uuid of player
-	 * @return instance of specific XPlayer
+	 * @return instance of specific Citizen
 	 */
-	public XPlayer getXPlayer(UUID uuid) {
+	public Citizen getXPlayer(UUID uuid) {
 		return getXPlayers().get(uuid);
 	}
 

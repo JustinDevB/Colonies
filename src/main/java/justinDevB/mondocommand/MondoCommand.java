@@ -8,7 +8,7 @@ import java.util.Map;
 
 import justinDevB.mondocommand.dynmaic.SubCommandFinder;
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.XPlayer.Rank;
+import justinDevB.Colonies.Citizen.Rank;
 import justinDevB.mondocommand.CallInfo;
 
 import org.apache.commons.lang.Validate;

@@ -10,7 +10,7 @@ import justinDevB.mondocommand.MondoCommand;
 import justinDevB.mondocommand.MondoFailure;
 import justinDevB.mondocommand.SubCommand;
 import justinDevB.mondocommand.SubHandler;
-import justinDevB.Colonies.XPlayer.Rank;
+import justinDevB.Colonies.Citizen.Rank;
 import justinDevB.mondocommand.CallInfo;
 
 public class SubCommandFinder {

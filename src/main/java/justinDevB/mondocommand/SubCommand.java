@@ -7,8 +7,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.XPlayer;
-import justinDevB.Colonies.XPlayer.Rank;
+import justinDevB.Colonies.Citizen;
+import justinDevB.Colonies.Citizen.Rank;
 
 
 
@@ -205,7 +205,7 @@ public final class SubCommand {
 		if (sender instanceof ConsoleCommandSender)
 			return true;
 		//Core.getInstance().log("Check Rank: " + rank, true);
-		XPlayer xPlayer = Colonies.getInstance().getXPlayer(((Player) sender).getUniqueId());
-		return xPlayer.hasRank(rank);
+		Citizen citizen = Colonies.getInstance().getXPlayer(((Player) sender).getUniqueId());
+		return citizen.hasRank(rank);
 	}
 }
