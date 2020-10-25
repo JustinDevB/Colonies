@@ -4,28 +4,28 @@ import justinDevB.Colonies.XPlayer;
 
 public class Colony {
 
-	private String townName;
+	private String colonyName;
 	private XPlayer mayor;
 
 	public Colony(String name, XPlayer mayor) {
-		this.townName = name;
+		this.colonyName = name;
 		this.mayor = mayor;
-		this.loadTown();
+		this.loadColony();
 	}
 
 	public Colony(String name) {
-		this.townName = name;
+		this.colonyName = name;
 	}
 
 	public String getName() {
-		return this.townName;
+		return this.colonyName;
 	}
 	
 	public XPlayer getMayor() {
 		return this.mayor;
 	}
 	
-	private void loadTown() {
+	private void loadColony() {
 		
 	}
 
