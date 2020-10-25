@@ -13,22 +13,22 @@ import justinDevB.Colonies.Events.PlayerUnRegisterEvent;
 
 public class BukkitEventListener implements Listener {
 
-	private final Colonies townyx;
+	private final Colonies colonies;
 
 	public BukkitEventListener(Colonies tx) {
-		this.townyx = tx;
+		this.colonies = tx;
 	}
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
-		final Citizen citizen = new Citizen(townyx, event.getPlayer());
-		townyx.getXPlayers().put(event.getPlayer().getUniqueId(), citizen);
+		final Citizen citizen = new Citizen(colonies, event.getPlayer());
+		colonies.getCitizens().put(event.getPlayer().getUniqueId(), citizen);
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		final Player p = event.getPlayer();
-		townyx.getXPlayers().remove(p.getUniqueId());
+		colonies.getCitizens().remove(p.getUniqueId());
 
 		PlayerUnRegisterEvent deRegister = new PlayerUnRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(deRegister);

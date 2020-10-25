@@ -67,4 +67,14 @@ public class Colony {
 		return false;
 	}
 
+	public void addCitizen(Citizen citizen) {
+		if (!citizens.contains(citizen))
+			citizens.add(citizen);
+	}
+
+	public void removeCitizen(Citizen citizen) {
+		if (citizens.contains(citizen))
+			citizens.remove(citizen);
+	}
+
 }

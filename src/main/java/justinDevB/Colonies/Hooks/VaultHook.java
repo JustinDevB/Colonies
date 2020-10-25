@@ -16,65 +16,65 @@ import net.milkbowl.vault.permission.Permission;
 
 public class VaultHook {
 
-	private static Colonies townyx;
+	private static Colonies colonies;
 	private static Economy econ = null;
 	private static Permission perms = null;
 	private static Chat chat = null;
 	private static boolean isDebug = false;
 
 	public VaultHook(Colonies tX) {
-		townyx = tX;
-		if (townyx.getMode() == Mode.DEBUG)
+		colonies = tX;
+		if (colonies.getMode() == Mode.DEBUG)
 			isDebug = true;
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Initializing Vault Hook...");
+			colonies.getLogger().log(Level.INFO, "Initializing Vault Hook...");
 
 		if (!setupEconomy()) {
-			townyx.getLogger().log(Level.SEVERE, "Failed to hook into economy, shutting down...");
-			Bukkit.getPluginManager().disablePlugin(townyx);
+			colonies.getLogger().log(Level.SEVERE, "Failed to hook into economy, shutting down...");
+			Bukkit.getPluginManager().disablePlugin(colonies);
 		}
 
 		setupChat();
 		setupPermissions();
 
 		if (isDebug) {
-			townyx.getLogger().log(Level.INFO, "Successfully hooked into Vault!");
+			colonies.getLogger().log(Level.INFO, "Successfully hooked into Vault!");
 		}
 	}
 
 	private boolean setupEconomy() {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Initializing Economy...");
-		RegisteredServiceProvider<Economy> rsp = townyx.getServer().getServicesManager().getRegistration(Economy.class);
+			colonies.getLogger().log(Level.INFO, "Initializing Economy...");
+		RegisteredServiceProvider<Economy> rsp = colonies.getServer().getServicesManager().getRegistration(Economy.class);
 		if (rsp == null) {
 			if (isDebug)
-				townyx.getLogger().log(Level.SEVERE, "Economy initialization failed!");
+				colonies.getLogger().log(Level.SEVERE, "Economy initialization failed!");
 			return false;
 		}
 		econ = rsp.getProvider();
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Economy initialized!");
+			colonies.getLogger().log(Level.INFO, "Economy initialized!");
 		return econ != null;
 	}
 
 	private boolean setupChat() {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Initializing Chat...");
-		RegisteredServiceProvider<Chat> rsp = townyx.getServer().getServicesManager().getRegistration(Chat.class);
+			colonies.getLogger().log(Level.INFO, "Initializing Chat...");
+		RegisteredServiceProvider<Chat> rsp = colonies.getServer().getServicesManager().getRegistration(Chat.class);
 		chat = rsp.getProvider();
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Chat initialized!");
+			colonies.getLogger().log(Level.INFO, "Chat initialized!");
 		return chat != null;
 	}
 
 	private boolean setupPermissions() {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Initializing Permissions...");
-		RegisteredServiceProvider<Permission> rsp = townyx.getServer().getServicesManager()
+			colonies.getLogger().log(Level.INFO, "Initializing Permissions...");
+		RegisteredServiceProvider<Permission> rsp = colonies.getServer().getServicesManager()
 				.getRegistration(Permission.class);
 		perms = rsp.getProvider();
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Permissions initialized!");
+			colonies.getLogger().log(Level.INFO, "Permissions initialized!");
 		return perms != null;
 	}
 
@@ -87,13 +87,13 @@ public class VaultHook {
 	 */
 	public static EconomyResponse depositAmount(OfflinePlayer player, double amount) {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Attempting to deposit " + amount + " to player " + player.getName());
+			colonies.getLogger().log(Level.INFO, "Attempting to deposit " + amount + " to player " + player.getName());
 		EconomyResponse r = econ.depositPlayer(player, amount);
 		if (isDebug) {
 			if (r.transactionSuccess())
-				townyx.getLogger().log(Level.INFO, "Successfully deposited " + amount + " from " + player.getName());
+				colonies.getLogger().log(Level.INFO, "Successfully deposited " + amount + " from " + player.getName());
 			else
-				townyx.getLogger().log(Level.SEVERE, "Could not deposit " + amount + " to player " + player.getName());
+				colonies.getLogger().log(Level.SEVERE, "Could not deposit " + amount + " to player " + player.getName());
 		}
 		return r;
 	}
@@ -106,7 +106,7 @@ public class VaultHook {
 	 */
 	public static double getBalance(OfflinePlayer player) {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO,
+			colonies.getLogger().log(Level.INFO,
 					"Balance of player " + player.getName() + " is " + econ.getBalance(player));
 		return econ.getBalance(player);
 	}
@@ -120,13 +120,13 @@ public class VaultHook {
 	 */
 	public static EconomyResponse subtract(OfflinePlayer player, double amount) {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Attempting to subtract " + amount + " from player " + player.getName());
+			colonies.getLogger().log(Level.INFO, "Attempting to subtract " + amount + " from player " + player.getName());
 		EconomyResponse r = econ.withdrawPlayer(player, amount);
 		if (isDebug) {
 			if (r.transactionSuccess())
-				townyx.getLogger().log(Level.INFO, "Successfully subtracted " + amount + " from " + player.getName());
+				colonies.getLogger().log(Level.INFO, "Successfully subtracted " + amount + " from " + player.getName());
 			else
-				townyx.getLogger().log(Level.SEVERE,
+				colonies.getLogger().log(Level.SEVERE,
 						"Could not subtract " + amount + " from player " + player.getName());
 		}
 		return r;
@@ -141,14 +141,14 @@ public class VaultHook {
 	 */
 	public static EconomyResponse set(OfflinePlayer player, double amount) {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Attempting to set " + player.getName() + "'s balance to " + amount);
+			colonies.getLogger().log(Level.INFO, "Attempting to set " + player.getName() + "'s balance to " + amount);
 		econ.withdrawPlayer(player, getBalance(player));
 		EconomyResponse r = econ.depositPlayer(player, amount);
 		if (isDebug) {
 			if (r.transactionSuccess())
-				townyx.getLogger().log(Level.INFO, "Successfully set " + player.getName() + "'s balance to " + amount);
+				colonies.getLogger().log(Level.INFO, "Successfully set " + player.getName() + "'s balance to " + amount);
 			else
-				townyx.getLogger().log(Level.SEVERE, "Could not set " + player.getName() + "'s balance to " + amount);
+				colonies.getLogger().log(Level.SEVERE, "Could not set " + player.getName() + "'s balance to " + amount);
 		}
 		return r;
 	}
@@ -162,7 +162,7 @@ public class VaultHook {
 	 */
 	public static boolean hasEnough(OfflinePlayer player, double amount) {
 		if (isDebug)
-			townyx.getLogger().log(Level.INFO, "Checking if " + player.getName() + " can afford " + amount);
+			colonies.getLogger().log(Level.INFO, "Checking if " + player.getName() + " can afford " + amount);
 		if (getBalance(player) >= amount)
 			return true;
 		else
