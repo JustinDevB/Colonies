@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Utils;
+package justinDevB.Colonies.Utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,14 +9,13 @@ import java.util.logging.Level;
 
 import org.bukkit.entity.Player;
 
-import justinDevB.TownyX.TownyX;
-
+import justinDevB.Colonies.Colonies;
 import net.aerenserve.minesql.MineSQL;
 import net.aerenserve.minesql.Table;
 
 public class DatabaseUtil {
 
-	private static TownyX core;
+	private static Colonies core;
 	private static MineSQL sql;
 	private static Thread t;
 
@@ -24,7 +23,7 @@ public class DatabaseUtil {
 
 	public static Queue<String> queryQueue;
 
-	public static void init(TownyX core) {
+	public static void init(Colonies core) {
 		DatabaseUtil.core = core;
 		queryQueue = new LinkedList<>();
 		tables = new HashMap<>();
@@ -38,7 +37,7 @@ public class DatabaseUtil {
 		// init tables
 
 		// Entries must be comma seperated and a type defined
-		updateDatabase("CREATE TABLE IF NOT EXISTS `townyx_players` (\n" 
+		updateDatabase("CREATE TABLE IF NOT EXISTS `colonies_players` (\n" 
 		        + " `uuid` char(36) NOT NULL,\n" 
 				+ " `lastip` varchar(15) DEFAULT NULL\n"
 		        + ") ENGINE=INNODB DEFAULT CHARSET=LATIN1;");
@@ -74,7 +73,7 @@ public class DatabaseUtil {
 	 * @return ResultSet containing information about Player p
 	 */
 	public static ResultSet getPlayerInfo(Player p) {
-		return DatabaseUtil.queryDatabase("SELECT * FROM `townyx_players` WHERE `uuid` = " + p.getUniqueId());
+		return DatabaseUtil.queryDatabase("SELECT * FROM `colonies_players` WHERE `uuid` = " + p.getUniqueId());
 	}
 
 	public static MineSQL getSql() {

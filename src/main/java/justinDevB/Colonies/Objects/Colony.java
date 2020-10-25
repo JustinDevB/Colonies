@@ -1,19 +1,19 @@
-package justinDevB.TownyX.Objects;
+package justinDevB.Colonies.Objects;
 
-import justinDevB.TownyX.XPlayer;
+import justinDevB.Colonies.XPlayer;
 
-public class Town {
+public class Colony {
 
 	private String townName;
 	private XPlayer mayor;
 
-	public Town(String name, XPlayer mayor) {
+	public Colony(String name, XPlayer mayor) {
 		this.townName = name;
 		this.mayor = mayor;
 		this.loadTown();
 	}
 
-	public Town(String name) {
+	public Colony(String name) {
 		this.townName = name;
 	}
 

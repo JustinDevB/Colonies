@@ -1,2 +1,9 @@
 Main:
   Debug: false
+
+Database:
+  hostname: localhost
+  port: 3306
+  database: mc
+  username: root
+  password: 1234

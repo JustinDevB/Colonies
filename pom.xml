@@ -9,11 +9,11 @@
 	<packaging>jar</packaging>
 
 	<name>TownyX</name>
-	<url>https://github.com/JustinDevB/TownyX</url>
+	<url>https://github.com/JustinDevB/Colonies</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>justinDevB.TownyX.TownyX</mainClass>
+		<mainClass>justinDevB.Colonies.Colonies</mainClass>
 		<author>Justin</author>
 		<mavan.compiler.source>1.8</mavan.compiler.source>
 	</properties>
@@ -86,7 +86,7 @@
 					<relocations>
 						<relocation>
 							<pattern>de.leonhard</pattern>
-							<shadedPattern>jjbat_000.TownyX</shadedPattern>
+							<shadedPattern>jjbat_000.Colonies</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>

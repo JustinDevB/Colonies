@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.XPlayer;
-import justinDevB.TownyX.XPlayer.Rank;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.XPlayer;
+import justinDevB.Colonies.XPlayer.Rank;
 
 
 
@@ -205,7 +205,7 @@ public final class SubCommand {
 		if (sender instanceof ConsoleCommandSender)
 			return true;
 		//Core.getInstance().log("Check Rank: " + rank, true);
-		XPlayer xPlayer = TownyX.getInstance().getXPlayer(((Player) sender).getUniqueId());
+		XPlayer xPlayer = Colonies.getInstance().getXPlayer(((Player) sender).getUniqueId());
 		return xPlayer.hasRank(rank);
 	}
 }

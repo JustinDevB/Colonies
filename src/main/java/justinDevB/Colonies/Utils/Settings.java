@@ -1,10 +1,10 @@
-package justinDevB.TownyX.Utils;
+package justinDevB.Colonies.Utils;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
 import de.leonhard.storage.Yaml;
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.Exceptions.FileSaveException;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.Exceptions.FileSaveException;
 
 public class Settings {
 
@@ -14,7 +14,7 @@ public class Settings {
 	private FileUtil fUtil;
 	private static Yaml townList;
 
-	public Settings(TownyX instance) throws FileSaveException {
+	public Settings(Colonies instance) throws FileSaveException {
 
 		config = instance.getConfig();
 

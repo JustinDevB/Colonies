@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Events;
+package justinDevB.Colonies.Events;
 
 import java.util.logging.Level;
 
@@ -6,10 +6,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.TownyX.Mode;
-import justinDevB.TownyX.XPlayer;
-import justinDevB.TownyX.Utils.Settings;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.XPlayer;
+import justinDevB.Colonies.Colonies.Mode;
+import justinDevB.Colonies.Utils.Settings;
 
 public class PlayerRegisterEvent extends Event {
 
@@ -50,7 +50,7 @@ public class PlayerRegisterEvent extends Event {
 	}
 
 	private void debug() {
-		TownyX townyx = TownyX.getInstance();
+		Colonies townyx = Colonies.getInstance();
 		if (townyx.getMode() == Mode.DEBUG)
 			townyx.getLogger().log(Level.INFO, "Registering player " + getPlayer().getName());
 	}

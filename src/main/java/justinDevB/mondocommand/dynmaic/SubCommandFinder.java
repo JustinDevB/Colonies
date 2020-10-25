@@ -6,11 +6,11 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import justinDevB.TownyX.XPlayer.Rank;
 import justinDevB.mondocommand.MondoCommand;
 import justinDevB.mondocommand.MondoFailure;
 import justinDevB.mondocommand.SubCommand;
 import justinDevB.mondocommand.SubHandler;
+import justinDevB.Colonies.XPlayer.Rank;
 import justinDevB.mondocommand.CallInfo;
 
 public class SubCommandFinder {

@@ -1,6 +1,6 @@
-package justinDevB.TownyX.Exceptions;
+package justinDevB.Colonies.Exceptions;
 
-import justinDevB.TownyX.Utils.Messages;
+import justinDevB.Colonies.Utils.Messages;
 
 public class FileSaveException extends Exception  {
 	

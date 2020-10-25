@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Listeners;
+package justinDevB.Colonies.Listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -7,15 +7,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.XPlayer;
-import justinDevB.TownyX.Events.PlayerUnRegisterEvent;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.XPlayer;
+import justinDevB.Colonies.Events.PlayerUnRegisterEvent;
 
 public class BukkitEventListener implements Listener {
 
-	private final TownyX townyx;
+	private final Colonies townyx;
 
-	public BukkitEventListener(TownyX tx) {
+	public BukkitEventListener(Colonies tx) {
 		this.townyx = tx;
 	}
 

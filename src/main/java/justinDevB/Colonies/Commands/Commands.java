@@ -1,17 +1,17 @@
-package justinDevB.TownyX.Commands;
+package justinDevB.Colonies.Commands;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.XPlayer.Rank;
-import justinDevB.TownyX.Utils.Messages;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.Utils.Messages;
+import justinDevB.Colonies.XPlayer.Rank;
 import justinDevB.mondocommand.dynmaic.Sub;
 import justinDevB.mondocommand.CallInfo;
 import net.md_5.bungee.api.ChatColor;
 
 public class Commands {
 
-	private final TownyX townyx;
+	private final Colonies townyx;
 
-	public Commands(TownyX tX) {
+	public Commands(Colonies tX) {
 		this.townyx = tX;
 	}
 

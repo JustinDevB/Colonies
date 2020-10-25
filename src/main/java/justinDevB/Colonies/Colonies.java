@@ -1,4 +1,4 @@
-package justinDevB.TownyX;
+package justinDevB.Colonies;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,21 +11,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import justinDevB.TownyX.Commands.Commands;
-import justinDevB.TownyX.Exceptions.FileSaveException;
-import justinDevB.TownyX.Hooks.VaultHook;
-import justinDevB.TownyX.Listeners.BukkitEventListener;
-import justinDevB.TownyX.Utils.DatabaseUtil;
-import justinDevB.TownyX.Utils.FileUtil;
-import justinDevB.TownyX.Utils.Messages;
-import justinDevB.TownyX.Utils.Settings;
+import justinDevB.Colonies.Commands.Commands;
+import justinDevB.Colonies.Exceptions.FileSaveException;
+import justinDevB.Colonies.Hooks.VaultHook;
+import justinDevB.Colonies.Listeners.BukkitEventListener;
+import justinDevB.Colonies.Utils.DatabaseUtil;
+import justinDevB.Colonies.Utils.FileUtil;
+import justinDevB.Colonies.Utils.Messages;
+import justinDevB.Colonies.Utils.Settings;
 import justinDevB.mondocommand.MondoCommand;
 
-public class TownyX extends JavaPlugin {
+public class Colonies extends JavaPlugin {
 
 	private HashMap<UUID, XPlayer> xPlayers = new HashMap<UUID, XPlayer>();
 	private ArrayList<String> towns = new ArrayList<>();
-	private static TownyX instance = null;
+	private static Colonies instance = null;
 	private MondoCommand mcmd;
 	private Mode mode;
 
@@ -63,11 +63,11 @@ public class TownyX extends JavaPlugin {
 	}
 
 	/**
-	 * Get TownyX Singleton instance
+	 * Get Colonies Singleton instance
 	 * 
 	 * @return singleton
 	 */
-	public static TownyX getInstance() {
+	public static Colonies getInstance() {
 		return instance;
 	}
 

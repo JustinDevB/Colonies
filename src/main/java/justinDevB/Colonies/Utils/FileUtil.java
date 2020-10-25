@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Utils;
+package justinDevB.Colonies.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,19 +12,19 @@ import java.util.Map;
 import de.leonhard.storage.Json;
 import de.leonhard.storage.Yaml;
 import de.leonhard.storage.internal.settings.ReloadSettings;
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.Exceptions.FileSaveException;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.Exceptions.FileSaveException;
 
 public class FileUtil {
 
 	private HashMap<String, Yaml> yamlFiles = new HashMap<>();
 	private HashMap<String, Json> jsonFiles = new HashMap<>();
 
-	private TownyX townyx;
+	private Colonies townyx;
 
 	private static FileUtil instance = null;
 
-	public FileUtil(TownyX t) {
+	public FileUtil(Colonies t) {
 		townyx = t;
 		instance = this;
 	}

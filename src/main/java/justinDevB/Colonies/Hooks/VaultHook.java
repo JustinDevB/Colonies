@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Hooks;
+package justinDevB.Colonies.Hooks;
 
 import java.util.logging.Level;
 
@@ -7,8 +7,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.TownyX.Mode;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.Colonies.Mode;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -16,13 +16,13 @@ import net.milkbowl.vault.permission.Permission;
 
 public class VaultHook {
 
-	private static TownyX townyx;
+	private static Colonies townyx;
 	private static Economy econ = null;
 	private static Permission perms = null;
 	private static Chat chat = null;
 	private static boolean isDebug = false;
 
-	public VaultHook(TownyX tX) {
+	public VaultHook(Colonies tX) {
 		townyx = tX;
 		if (townyx.getMode() == Mode.DEBUG)
 			isDebug = true;

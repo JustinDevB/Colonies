@@ -1,4 +1,4 @@
-package justinDevB.TownyX.Utils;
+package justinDevB.Colonies.Utils;
 
 import de.leonhard.storage.Yaml;
 

@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import justinDevB.TownyX.TownyX;
-import justinDevB.TownyX.XPlayer.Rank;
 import justinDevB.mondocommand.dynmaic.SubCommandFinder;
+import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.XPlayer.Rank;
 import justinDevB.mondocommand.CallInfo;
 
 import org.apache.commons.lang.Validate;
