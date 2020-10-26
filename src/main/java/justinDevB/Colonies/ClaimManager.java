@@ -1,11 +1,17 @@
 package justinDevB.Colonies;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import org.bukkit.Chunk;
 
+import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
+import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
+import justinDevB.Colonies.Objects.ChunkClaim;
+import justinDevB.Colonies.Objects.Colony;
 import justinDevB.Colonies.Utils.Settings;
 
 public class ClaimManager {
@@ -15,6 +21,7 @@ public class ClaimManager {
 	private boolean isDebug = false;
 
 	private Set<Chunk> allClaims = new HashSet<>();
+	private Map<ChunkClaim, Colony> chunkMap = new ConcurrentHashMap<>();
 
 	private ClaimManager() {
 		colonies = Colonies.getInstance();
@@ -67,6 +74,27 @@ public class ClaimManager {
 		if (allClaims.contains(chunk))
 			allClaims.remove(chunk);
 
+	}
+
+	/**
+	 * Map a chunk to a specific Colony
+	 * 
+	 * @param claim
+	 * @param colony
+	 * @throws ChunkAlreadyClaimedException
+	 */
+	public void addColonyClaim(ChunkClaim claim, Colony colony) throws ChunkAlreadyClaimedException {
+		if (chunkMap.containsKey(claim))
+			throw new ChunkAlreadyClaimedException();
+		else
+			chunkMap.put(claim, colony);
+	}
+
+	public void removeColonyClaim(ChunkClaim claim, Colony colony) throws ChunkNotClaimedException {
+		if (!chunkMap.containsKey(claim))
+			throw new ChunkNotClaimedException();
+		else
+			chunkMap.remove(claim, colony);
 	}
 
 	/**

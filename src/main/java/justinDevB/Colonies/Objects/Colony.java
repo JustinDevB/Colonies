@@ -8,6 +8,7 @@ import org.bukkit.Chunk;
 import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
+import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 
 public class Colony {
 
@@ -67,9 +68,16 @@ public class Colony {
 		return false;
 	}
 
-	public void addCitizen(Citizen citizen) {
+	public void addCitizen(Citizen citizen) throws PlayerInColonyException {
 		if (!citizens.contains(citizen))
 			citizens.add(citizen);
+		else {
+			try {
+				throw new PlayerInColonyException(String.format("Player is already in Colony: %s", citizen.getColony().getName()));
+			} catch (PlayerInColonyException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void removeCitizen(Citizen citizen) {

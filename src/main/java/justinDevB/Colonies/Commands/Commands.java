@@ -27,9 +27,4 @@ public class Commands {
 	public void info(CallInfo call) {
 		call.reply(ChatColor.GREEN + "Mode: " + ChatColor.GOLD + townyx.getMode());
 	}
-	
-	@Sub(rank = Rank.ADMIN, description = "Check if singleton is loaded, allowConsole = true")
-	public void testCall(CallInfo call) {
-		ClaimManager.getInstance().testFunction();
-	}
 }

@@ -205,7 +205,7 @@ public final class SubCommand {
 		if (sender instanceof ConsoleCommandSender)
 			return true;
 		//Core.getInstance().log("Check Rank: " + rank, true);
-		Citizen citizen = Colonies.getInstance().getXPlayer(((Player) sender).getUniqueId());
+		Citizen citizen = Colonies.getInstance().getCitizen(((Player) sender).getUniqueId());
 		return citizen.hasRank(rank);
 	}
 }

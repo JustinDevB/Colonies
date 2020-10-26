@@ -1,3 +1,6 @@
 Errors:
   file_save: "Error saving file"
   chunk_already_claimed: "Chunk is already claimed"
+  chunk_not_claimed: "Chunk is not claimed by a colony!"
+  player_in_colony: "Player is already in a colony!"
+  player_not_in_colony: "Player is not in a Colony!"

@@ -7,13 +7,16 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
+import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Hooks.VaultHook;
+import justinDevB.Colonies.Objects.Colony;
 
 public class Citizen {
 
 	private final Colonies colonies;
 	private final Player player;
 	private Rank rank = Rank.PLAYER;
+	private Colony colony = null;
 
 	public Citizen(Colonies cl, Player p) {
 		this.colonies = cl;
@@ -33,6 +36,27 @@ public class Citizen {
 
 	private OfflinePlayer getOfflinePlayer() {
 		return Bukkit.getOfflinePlayer(getPlayer().getUniqueId());
+	}
+	
+	public Colony getColony() {
+		return this.colony;
+	}
+	
+	/**
+	 * Add a player into a Colony
+	 * @throws PlayerInColonyException 
+	 */
+	public void setColony(Colony cl) throws PlayerInColonyException {
+		this.colony = cl;
+		cl.addCitizen(this);
+	}
+	
+	/**
+	 * Remove Player from their Colony
+	 */
+	public void removeFromColony() {
+		getColony().removeCitizen(this);
+		this.colony = null;
 	}
 
 	/**
