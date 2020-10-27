@@ -4,3 +4,4 @@ Errors:
   chunk_not_claimed: "Chunk is not claimed by a colony!"
   player_in_colony: "Player is already in a colony!"
   player_not_in_colony: "Player is not in a Colony!"
+  colony_already_exists: "Colony already registered!"

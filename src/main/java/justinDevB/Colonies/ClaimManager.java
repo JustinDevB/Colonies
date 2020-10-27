@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
@@ -13,6 +14,7 @@ import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Objects.ChunkClaim;
 import justinDevB.Colonies.Objects.Colony;
 import justinDevB.Colonies.Utils.Settings;
+import net.md_5.bungee.api.ChatColor;
 
 public class ClaimManager {
 	private Colonies colonies;
@@ -28,7 +30,8 @@ public class ClaimManager {
 		isDebug = Settings.isDebug();
 	}
 
-	public void addClaim(Chunk chunk) {
+	private void addClaim(Chunk chunk) {
+		Bukkit.broadcastMessage(ChatColor.RED + "Executing addClaim()");
 		if (isDebug) {
 			colonies.getLogger().log(Level.INFO,
 					String.format("Attempting to claim chunk: x:%d z:%d", chunk.getX(), chunk.getZ()));
@@ -57,7 +60,11 @@ public class ClaimManager {
 		return false;
 	}
 
-	public void removeClaim(Chunk chunk) {
+	public int getClaimsSize() {
+		return allClaims.size();
+	}
+
+	private void removeClaim(Chunk chunk) {
 		if (isDebug) {
 			colonies.getLogger().log(Level.INFO,
 					String.format("Attempting to remove chunk @ x:%d z:%d", chunk.getX(), chunk.getZ()));
@@ -84,17 +91,47 @@ public class ClaimManager {
 	 * @throws ChunkAlreadyClaimedException
 	 */
 	public void addColonyClaim(ChunkClaim claim, Colony colony) throws ChunkAlreadyClaimedException {
+		Bukkit.broadcastMessage(ChatColor.RED + "Executing addColonyClaim()");
 		if (chunkMap.containsKey(claim))
 			throw new ChunkAlreadyClaimedException();
-		else
+		else {
 			chunkMap.put(claim, colony);
+			addClaim(claim.getChunk());
+			claim.setColony(colony);
+		}
 	}
 
+	/**
+	 * Remove a Colonie's claim to a chunk and remove all references to claim
+	 * 
+	 * @param claim
+	 * @param colony
+	 * @throws ChunkNotClaimedException
+	 */
 	public void removeColonyClaim(ChunkClaim claim, Colony colony) throws ChunkNotClaimedException {
 		if (!chunkMap.containsKey(claim))
 			throw new ChunkNotClaimedException();
-		else
+		else {
 			chunkMap.remove(claim, colony);
+			removeClaim(claim.getChunk());
+		}
+	}
+
+	/**
+	 * Return ChunkClaim that chunk is inside of Might have performance issues when
+	 * a large number of chunks are claimed, will investigate other methods later.
+	 * 
+	 * @param chunk to search
+	 * @return ChunkClaim if chunk is claimed
+	 * @throws ChunkNotClaimedException
+	 *
+	 */
+	public ChunkClaim getClaim(Chunk chunk) throws ChunkNotClaimedException {
+		for (ChunkClaim claim : chunkMap.keySet()) {
+			if (claim.getChunk() == chunk)
+				return claim;
+		}
+		throw new ChunkNotClaimedException();
 	}
 
 	/**

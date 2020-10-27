@@ -1,13 +1,16 @@
-C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\ChunkAlreadyClaimed.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Commands\Commands.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Colonies.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Events\PlayerRegisterEvent.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand\dynmaic\SubCommandFinder.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Listeners\BukkitEventListener.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\FileSaveException.java
+C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\ColonyAlreadyRegisteredException.java
+C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\PlayerInColonyException.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand\MondoCommand.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\ColonyException.java
+C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\ColonyManager.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Events\ChunkClaimEvent.java
+C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\ChunkNotClaimedException.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Utils\Settings.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Hooks\VaultHook.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Utils\FileUtil.java
@@ -18,6 +21,7 @@ C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Utils\Messages.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand\dynmaic\Sub.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\ClaimManager.java
+C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Exceptions\ChunkAlreadyClaimedException.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\Colonies\Utils\DataManager.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand\ChatMagic.java
 C:\Users\Justin\eclipse-workspace\Colonies\src\main\java\justinDevB\mondocommand\SubCommand.java

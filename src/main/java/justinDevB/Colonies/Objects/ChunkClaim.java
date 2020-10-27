@@ -60,6 +60,7 @@ public class ChunkClaim {
 	 * 
 	 * @return claimed status
 	 */
+	@Deprecated
 	public boolean isClaimed() {
 		return this.isClaimed;
 	}

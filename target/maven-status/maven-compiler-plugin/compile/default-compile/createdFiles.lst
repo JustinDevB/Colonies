@@ -1,6 +1,9 @@
 justinDevB\Colonies\Commands\Commands.class
+justinDevB\Colonies\ColonyManager.class
 justinDevB\Colonies\Objects\Colony.class
+justinDevB\Colonies\Exceptions\ChunkNotClaimedException.class
 justinDevB\mondocommand\dynmaic\Sub.class
+justinDevB\Colonies\Exceptions\PlayerInColonyException.class
 justinDevB\Colonies\ClaimManager.class
 justinDevB\Colonies\Utils\Messages.class
 justinDevB\mondocommand\SubHandler.class
@@ -10,6 +13,7 @@ justinDevB\Colonies\Colonies.class
 justinDevB\Colonies\Events\PlayerUnRegisterEvent.class
 justinDevB\mondocommand\CallInfo.class
 justinDevB\mondocommand\SubCommand.class
+justinDevB\Colonies\Exceptions\ColonyAlreadyRegisteredException.class
 justinDevB\Colonies\Exceptions\FileSaveException.class
 justinDevB\Colonies\Exceptions\ColonyException.class
 justinDevB\Colonies\Objects\ChunkClaim.class
@@ -22,11 +26,11 @@ justinDevB\mondocommand\MondoCommand.class
 justinDevB\Colonies\Colonies$Mode.class
 justinDevB\Colonies\Hooks\VaultHook.class
 justinDevB\mondocommand\MondoFailure.class
+justinDevB\Colonies\Exceptions\ChunkAlreadyClaimedException.class
 justinDevB\Colonies\Utils\FileUtil.class
 justinDevB\Colonies\Events\PlayerRegisterEvent.class
 justinDevB\mondocommand\ChatMagic.class
 justinDevB\Colonies\Citizen$Rank.class
-justinDevB\Colonies\Exceptions\ChunkAlreadyClaimed.class
 justinDevB\mondocommand\dynmaic\SubCommandFinder$1.class
 justinDevB\Colonies\Utils\DataManager.class
 justinDevB\Colonies\Utils\QueryExecutor.class

@@ -9,5 +9,6 @@ public class Messages {
 	public static final String PLAYER_IN_COLONY_ERROR = messages.getString("player_in_colony");
 	public static final String PLAYER_NOT_IN_COLONY_ERROR = messages.getString("player_not_in_colony");
 	public static final String CHUNK_NOT_CLAIMED_ERROR = messages.getString("chunk_not_claimed");
-	
+	public static final String COLONY_REGISTERED_ERROR = messages.getString("colony_already_exists");
+
 }

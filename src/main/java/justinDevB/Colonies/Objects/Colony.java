@@ -8,6 +8,7 @@ import org.bukkit.Chunk;
 import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
+import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 
 public class Colony {
@@ -45,12 +46,22 @@ public class Colony {
 			throw new ChunkAlreadyClaimedException(
 					String.format("Chunk @ x:%d z:%d is already claimed!", chunk.getX(), chunk.getZ()));
 		}
-		manager.addClaim(chunk);
+		ChunkClaim claim = new ChunkClaim(chunk.getWorld(), chunk);
+		System.out.println("Claiming chunk");
+		manager.addColonyClaim(claim, this);
+		// manager.addClaim(chunk);
 		claims.add(chunk);
 	}
 
 	public void removeClaim(Chunk chunk) {
-		ClaimManager.getInstance().removeClaim(chunk);
+		ClaimManager manager = ClaimManager.getInstance();
+		try {
+			ChunkClaim claim = manager.getClaim(chunk);
+			manager.removeColonyClaim(claim, this);
+		} catch (ChunkNotClaimedException e) {
+			e.printStackTrace();
+		}
+		// ClaimManager.getInstance().removeClaim(chunk);
 		claims.remove(chunk);
 	}
 
@@ -73,7 +84,8 @@ public class Colony {
 			citizens.add(citizen);
 		else {
 			try {
-				throw new PlayerInColonyException(String.format("Player is already in Colony: %s", citizen.getColony().getName()));
+				throw new PlayerInColonyException(
+						String.format("Player is already in Colony: %s", citizen.getColony().getName()));
 			} catch (PlayerInColonyException e) {
 				e.printStackTrace();
 			}
