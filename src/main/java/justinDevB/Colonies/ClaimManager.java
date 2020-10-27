@@ -60,6 +60,10 @@ public class ClaimManager {
 		return false;
 	}
 
+	 /**
+	  * Get size total number of Chunks claimed
+	  * @return number of Chunks claimed
+	  */
 	public int getClaimsSize() {
 		return allClaims.size();
 	}

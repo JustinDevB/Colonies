@@ -17,8 +17,10 @@ public class DatabaseUtil {
 
 	private static Colonies core;
 	private static MineSQL sql;
+	@SuppressWarnings("unused")
 	private static Thread t;
 
+	@SuppressWarnings("unused")
 	private static HashMap<String, Table> tables;
 
 	public static Queue<String> queryQueue;

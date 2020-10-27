@@ -5,9 +5,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Events.ChunkClaimEvent;
-import justinDevB.Colonies.Events.PlayerUnRegisterEvent;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 
 public class ChunkClaim {
@@ -16,7 +14,6 @@ public class ChunkClaim {
 	private World world;
 	private boolean isClaimed = false;
 	private Chunk chunk;
-	private Citizen citizen;
 
 	private Colony colony = null;
 

@@ -15,6 +15,7 @@ import justinDevB.Colonies.Objects.Colony;
 
 public class Citizen {
 
+	@SuppressWarnings("unused")
 	private final Colonies colonies;
 	private final Player player;
 	private Rank rank = Rank.PLAYER;
@@ -24,6 +25,7 @@ public class Citizen {
 		this.colonies = cl;
 		this.player = p;
 
+		//TODO: Remove this
 		if (p.getName().equals("justin_393"))
 			setRank(Rank.ADMIN);
 

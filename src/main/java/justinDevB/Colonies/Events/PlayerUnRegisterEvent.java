@@ -8,7 +8,6 @@ import org.bukkit.event.HandlerList;
 
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Colonies.Mode;
-import justinDevB.Colonies.Utils.Settings;
 
 public class PlayerUnRegisterEvent extends Event {
 

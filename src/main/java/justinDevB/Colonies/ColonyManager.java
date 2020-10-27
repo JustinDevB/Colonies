@@ -16,6 +16,7 @@ public class ColonyManager {
 	private Colonies cl;
 	private static ColonyManager instance = null;
 	private List<Colony> allColonies = new ArrayList<>();
+	@SuppressWarnings("unused")
 	private boolean isDebug = false;
 	private ClaimManager manager;
 
@@ -73,6 +74,7 @@ public class ColonyManager {
 					String.format("Colony %s is already contained in 'allColonies'!", colony.getName()));
 	}
 
+	@SuppressWarnings("unused")
 	private void removeColonyFromList(Colony colony) {
 		if (allColonies.contains(colony))
 			allColonies.remove(colony);

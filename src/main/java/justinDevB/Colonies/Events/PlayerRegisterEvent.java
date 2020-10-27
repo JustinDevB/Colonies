@@ -9,7 +9,6 @@ import org.bukkit.event.HandlerList;
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Colonies.Mode;
-import justinDevB.Colonies.Utils.Settings;
 
 public class PlayerRegisterEvent extends Event {
 
