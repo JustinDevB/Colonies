@@ -7,8 +7,8 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Colonies.Mode;
+import justinDevB.Colonies.Objects.Citizen;
 
 public class PlayerRegisterEvent extends Event {
 

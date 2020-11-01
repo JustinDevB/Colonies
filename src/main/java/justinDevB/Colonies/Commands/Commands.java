@@ -5,8 +5,6 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 
-import justinDevB.Colonies.Citizen;
-import justinDevB.Colonies.Citizen.Rank;
 import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.ColonyManager;
@@ -15,7 +13,9 @@ import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.ColonyAlreadyRegisteredException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Objects.ChunkClaim;
+import justinDevB.Colonies.Objects.Citizen;
 import justinDevB.Colonies.Objects.Colony;
+import justinDevB.Colonies.Objects.Citizen.Rank;
 import justinDevB.Colonies.Utils.Messages;
 import justinDevB.mondocommand.CallInfo;
 import justinDevB.mondocommand.dynmaic.Sub;

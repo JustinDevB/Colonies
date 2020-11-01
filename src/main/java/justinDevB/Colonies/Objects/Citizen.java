@@ -1,4 +1,4 @@
-package justinDevB.Colonies;
+package justinDevB.Colonies.Objects;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -8,10 +8,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Hooks.VaultHook;
-import justinDevB.Colonies.Objects.Colony;
 
 public class Citizen {
 

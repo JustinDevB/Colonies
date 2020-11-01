@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import justinDevB.Colonies.Citizen.Rank;
+import justinDevB.Colonies.Objects.Citizen.Rank;
 
 
 @Target(ElementType.METHOD)

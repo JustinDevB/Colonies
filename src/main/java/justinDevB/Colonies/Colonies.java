@@ -14,6 +14,7 @@ import justinDevB.Colonies.Commands.Commands;
 import justinDevB.Colonies.Exceptions.FileSaveException;
 import justinDevB.Colonies.Hooks.VaultHook;
 import justinDevB.Colonies.Listeners.BukkitEventListener;
+import justinDevB.Colonies.Objects.Citizen;
 import justinDevB.Colonies.Utils.DatabaseUtil;
 import justinDevB.Colonies.Utils.FileUtil;
 import justinDevB.Colonies.Utils.Messages;

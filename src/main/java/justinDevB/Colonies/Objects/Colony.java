@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 
-import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;

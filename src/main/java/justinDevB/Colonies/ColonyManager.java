@@ -11,6 +11,7 @@ import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.ColonyAlreadyRegisteredException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Objects.ChunkClaim;
+import justinDevB.Colonies.Objects.Citizen;
 import justinDevB.Colonies.Objects.Colony;
 import justinDevB.Colonies.Utils.Settings;
 

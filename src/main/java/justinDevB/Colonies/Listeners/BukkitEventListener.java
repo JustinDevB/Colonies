@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.Citizen;
 import justinDevB.Colonies.Events.PlayerUnRegisterEvent;
+import justinDevB.Colonies.Objects.Citizen;
 
 public class BukkitEventListener implements Listener {
 

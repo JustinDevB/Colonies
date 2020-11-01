@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import justinDevB.mondocommand.dynmaic.SubCommandFinder;
-import justinDevB.Colonies.Citizen.Rank;
+import justinDevB.Colonies.Objects.Citizen.Rank;
 import justinDevB.mondocommand.CallInfo;
 
 import org.apache.commons.lang.Validate;

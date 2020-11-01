@@ -6,8 +6,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import justinDevB.Colonies.Colonies;
-import justinDevB.Colonies.Citizen;
-import justinDevB.Colonies.Citizen.Rank;
+import justinDevB.Colonies.Objects.Citizen;
+import justinDevB.Colonies.Objects.Citizen.Rank;
 
 
 
