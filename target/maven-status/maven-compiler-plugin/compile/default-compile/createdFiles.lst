@@ -19,7 +19,6 @@ justinDevB\Colonies\Exceptions\ColonyException.class
 justinDevB\Colonies\Objects\ChunkClaim.class
 justinDevB\Colonies\Listeners\BukkitEventListener.class
 justinDevB\mondocommand\FallbackHandler.class
-justinDevB\Colonies\Events\ChunkClaimEvent.class
 justinDevB\Colonies\Utils\Settings.class
 justinDevB\Colonies\Utils\DatabaseUtil.class
 justinDevB\mondocommand\MondoCommand.class

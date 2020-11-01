@@ -1,12 +1,8 @@
 package justinDevB.Colonies.Objects;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-
-import justinDevB.Colonies.Events.ChunkClaimEvent;
-import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 
 public class ChunkClaim {
 	private int x;
@@ -32,13 +28,8 @@ public class ChunkClaim {
 	public boolean setColony(Colony colony) {
 		this.colony = colony;
 
-		try {
-			colony.addClaim(chunk);
-		} catch (ChunkAlreadyClaimedException e) {
-			e.printStackTrace();
-			return false;
-		}
-		callClaimEvent();
+		colony.addClaim(chunk);
+
 		return true;
 	}
 
@@ -91,6 +82,7 @@ public class ChunkClaim {
 
 	/**
 	 * Return claimed chunk as a Location
+	 * 
 	 * @return Location of claimed chunk
 	 */
 	public Location getLocation() {
@@ -99,11 +91,6 @@ public class ChunkClaim {
 
 	public Chunk getChunk() {
 		return this.chunk;
-	}
-
-	private void callClaimEvent() {
-		ChunkClaimEvent claimEvent = new ChunkClaimEvent(this);
-		Bukkit.getPluginManager().callEvent(claimEvent);
 	}
 
 }

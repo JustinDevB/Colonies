@@ -31,7 +31,6 @@ public class ClaimManager {
 	}
 
 	private void addClaim(Chunk chunk) {
-		Bukkit.broadcastMessage(ChatColor.RED + "Executing addClaim()");
 		if (isDebug) {
 			colonies.getLogger().log(Level.INFO,
 					String.format("Attempting to claim chunk: x:%d z:%d", chunk.getX(), chunk.getZ()));
@@ -95,9 +94,10 @@ public class ClaimManager {
 	 * @throws ChunkAlreadyClaimedException
 	 */
 	public void addColonyClaim(ChunkClaim claim, Colony colony) throws ChunkAlreadyClaimedException {
-		Bukkit.broadcastMessage(ChatColor.RED + "Executing addColonyClaim()");
-		if (chunkMap.containsKey(claim))
-			throw new ChunkAlreadyClaimedException();
+		if (chunkMap.containsKey(claim)) {
+			Bukkit.broadcastMessage(ChatColor.DARK_RED + "Mapping for claim already exists in chunkMap!");
+				throw new ChunkAlreadyClaimedException("Exception in addColonyClaim()");
+		}
 		else {
 			chunkMap.put(claim, colony);
 			addClaim(claim.getChunk());
@@ -118,6 +118,7 @@ public class ClaimManager {
 		else {
 			chunkMap.remove(claim, colony);
 			removeClaim(claim.getChunk());
+			claim = null; // Potentially unnecessary, trying to ensure GC removes ChunkClaim object
 		}
 	}
 

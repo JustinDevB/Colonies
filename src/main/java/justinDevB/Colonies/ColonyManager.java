@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.bukkit.Chunk;
+
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
+import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.ColonyAlreadyRegisteredException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Objects.ChunkClaim;
@@ -29,8 +32,8 @@ public class ColonyManager {
 	public void createColony(String name, Citizen citizen)
 			throws PlayerInColonyException, ColonyAlreadyRegisteredException, ChunkAlreadyClaimedException {
 		if (citizen.hasColony())
-			throw new PlayerInColonyException(
-					String.format("Player is already a member in %s! Tried creating %s", citizen.getColony(), name));
+			throw new PlayerInColonyException(String.format("Player is already a member in %s! Tried creating %s",
+					citizen.getColony().getName(), name));
 
 		if (doesColonyExist(name))
 			throw new ColonyAlreadyRegisteredException(String
@@ -48,6 +51,27 @@ public class ColonyManager {
 		addColonyToList(colony);
 	}
 
+	public void removeColony(Colony colony) {
+		// Remove every Citizen from the Colony
+		for (Citizen citizen : colony.getCitizens())
+			citizen.removeFromColony();
+		
+		colony.getCitizens().clear();
+
+		// Unclaim every chunk from the Colony
+		if (!colony.getClaims().isEmpty()) {
+			for (Chunk chunk : colony.getClaims()) {
+				try {
+					manager.removeColonyClaim(manager.getClaim(chunk), colony);
+				} catch (ChunkNotClaimedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		removeColonyFromList(colony);
+		// TODO: Remove references from Database
+	}
+
 	/**
 	 * Check if Colony with "name" exists
 	 * 
@@ -62,7 +86,12 @@ public class ColonyManager {
 		return false;
 	}
 
-	public int getColonySize() {
+	/**
+	 * Return the number of Colonies that exist
+	 * 
+	 * @return amount of Colonies
+	 */
+	public int getColoniesAmount() {
 		return allColonies.size();
 	}
 
@@ -74,13 +103,36 @@ public class ColonyManager {
 					String.format("Colony %s is already contained in 'allColonies'!", colony.getName()));
 	}
 
-	@SuppressWarnings("unused")
 	private void removeColonyFromList(Colony colony) {
 		if (allColonies.contains(colony))
 			allColonies.remove(colony);
 		else
 			cl.getLogger().log(Level.WARNING,
 					String.format("Colony %s is not registred in `allColonies`!", colony.getName()));
+	}
+
+	/**
+	 * Return a list of Colonies
+	 * 
+	 * @return list of Colonies
+	 */
+	public List<Colony> getColoniesList() {
+		return this.allColonies;
+	}
+
+	/**
+	 * Return a specified Colony. No error checking is done in this method, may
+	 * return Null
+	 * 
+	 * @param Name of Colony to get
+	 * @return Colony
+	 */
+	public Colony getColony(String name) {
+		for (int i = 0; i < allColonies.size(); i++) {
+			if (allColonies.get(i).getName().equals(name))
+				return allColonies.get(i);
+		}
+		return null;
 	}
 
 	public static ColonyManager getInstance() {

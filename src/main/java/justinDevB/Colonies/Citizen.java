@@ -25,7 +25,7 @@ public class Citizen {
 		this.colonies = cl;
 		this.player = p;
 
-		//TODO: Remove this
+		// TODO: Remove this
 		if (p.getName().equals("justin_393"))
 			setRank(Rank.ADMIN);
 
@@ -79,10 +79,10 @@ public class Citizen {
 	}
 
 	/**
-	 * Remove Player from their Colony
+	 * Remove Player from their Colony. Handle removing from Colony in ColonyManager
 	 */
 	public void removeFromColony() {
-		getColony().removeCitizen(this);
+		getPlayer().sendMessage("You have been removed from " + getColony().getName());
 		this.colony = null;
 	}
 
