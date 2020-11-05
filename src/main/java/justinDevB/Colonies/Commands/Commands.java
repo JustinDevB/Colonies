@@ -144,8 +144,18 @@ public class Commands {
 			call.reply(ChatColor.RED + "This chunk is not claimed!");
 			return;
 		}
-		
+
 		call.reply(ChatColor.GREEN + "Removed claim");
+	}
+
+	@Sub(rank = Rank.ADMIN, description = "Teleport to your Colony spawn", allowConsole = false)
+	public void spawn(CallInfo call) {
+		Citizen citizen = colonies.getCitizen(call.getPlayer().getUniqueId());
+		if (!citizen.hasColony()) {
+			call.reply(ChatColor.RED + "You must belong to a Colony to do that!");
+			return;
+		}
+		citizen.teleportTo(citizen.getColony().getSpawn());
 	}
 
 	@Sub(rank = Rank.ADMIN, description = "View player rank", minArgs = 1, usage = "(name)", allowConsole = true)

@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
@@ -59,10 +60,11 @@ public class ClaimManager {
 		return false;
 	}
 
-	 /**
-	  * Get size total number of Chunks claimed
-	  * @return number of Chunks claimed
-	  */
+	/**
+	 * Get size total number of Chunks claimed
+	 * 
+	 * @return number of Chunks claimed
+	 */
 	public int getClaimsSize() {
 		return allClaims.size();
 	}
@@ -96,9 +98,8 @@ public class ClaimManager {
 	public void addColonyClaim(ChunkClaim claim, Colony colony) throws ChunkAlreadyClaimedException {
 		if (chunkMap.containsKey(claim)) {
 			Bukkit.broadcastMessage(ChatColor.DARK_RED + "Mapping for claim already exists in chunkMap!");
-				throw new ChunkAlreadyClaimedException("Exception in addColonyClaim()");
-		}
-		else {
+			throw new ChunkAlreadyClaimedException("Exception in addColonyClaim()");
+		} else {
 			chunkMap.put(claim, colony);
 			addClaim(claim.getChunk());
 			claim.setColony(colony);

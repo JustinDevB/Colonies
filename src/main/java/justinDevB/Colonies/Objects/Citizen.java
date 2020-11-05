@@ -69,6 +69,19 @@ public class Citizen {
 	}
 
 	/**
+	 * Teleport Citizen to loc
+	 * 
+	 * @param loc
+	 */
+	public void teleportTo(Location loc) {
+		getPlayer().teleport(loc);
+	}
+	
+	public void sendMessage(String msg) {
+		getPlayer().sendMessage(msg);
+	}
+
+	/**
 	 * Add a player into a Colony
 	 * 
 	 * @throws PlayerInColonyException

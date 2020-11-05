@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Colonies;
@@ -20,6 +21,7 @@ public class Colony {
 	private Citizen ruler;
 	private List<Citizen> citizens = new ArrayList<>();
 	private List<Chunk> claims = new ArrayList<>();
+	private Location spawn;
 
 	/**
 	 * Used for creating a new Colony
@@ -30,6 +32,7 @@ public class Colony {
 	public Colony(String name, Citizen ruler) {
 		this.colonyName = name;
 		this.ruler = ruler;
+		this.spawn = ruler.getLocation();
 	}
 
 	/**
@@ -104,21 +107,41 @@ public class Colony {
 		if (citizens.contains(citizen))
 			citizens.remove(citizen);
 	}
-	
+
 	/**
 	 * Return a List of Citizens in this Colony
+	 * 
 	 * @return list of citizens
 	 */
 	public List<Citizen> getCitizens() {
 		return this.citizens;
 	}
-	
+
 	/**
 	 * Return a list of Claims this Colony owns
+	 * 
 	 * @return list of claims
 	 */
 	public List<Chunk> getClaims() {
 		return this.claims;
+	}
+
+	/**
+	 * Set the Colony Spawn location
+	 * 
+	 * @param loc
+	 */
+	public void setSpawn(Location loc) {
+		this.spawn = loc;
+	}
+
+	/**
+	 * Get the location of Colony's spawn
+	 * 
+	 * @return Location
+	 */
+	public Location getSpawn() {
+		return this.spawn;
 	}
 
 	/**
