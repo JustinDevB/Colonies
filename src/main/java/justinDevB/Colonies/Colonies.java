@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -54,6 +55,8 @@ public class Colonies extends JavaPlugin {
 		loadMode();
 
 		// DatabaseUtil.init(this);
+
+		initStats();
 
 	}
 
@@ -222,6 +225,11 @@ public class Colonies extends JavaPlugin {
 			return false;
 		}
 		return false;
+	}
+
+	private void initStats() {
+		final int pluginId = 9333;
+		Metrics metrics = new Metrics(this, pluginId);
 	}
 
 }
