@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
@@ -28,6 +30,24 @@ public class ColonyManager {
 		cl = Colonies.getInstance();
 		isDebug = Settings.isDebug();
 		manager = ClaimManager.getInstance();
+	}
+
+	/**
+	 * Do not use! For testing purposes only!!
+	 * 
+	 * @param name
+	 * @param citizen
+	 * @param location
+	 * @throws ChunkAlreadyClaimedException
+	 * @throws PlayerInColonyException
+	 */
+	@Deprecated
+	public void createColony(String name, Citizen citizen, Location location)
+			throws ChunkAlreadyClaimedException, PlayerInColonyException {
+		Colony colony = new Colony(name, citizen, location);
+		ChunkClaim claim = new ChunkClaim(location.getWorld(), location.getChunk());
+		manager.addColonyClaim(claim, colony);
+		addColonyToList(colony);
 	}
 
 	public void createColony(String name, Citizen citizen)
@@ -54,9 +74,10 @@ public class ColonyManager {
 
 	public void removeColony(Colony colony) {
 		// Remove every Citizen from the Colony
-		for (Citizen citizen : colony.getCitizens())
+		for (Citizen citizen : colony.getCitizens()) {
 			citizen.removeFromColony();
-		
+		}
+
 		colony.getCitizens().clear();
 
 		// Unclaim every chunk from the Colony

@@ -7,19 +7,24 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import justinDevB.Colonies.Commands.Commands;
 import justinDevB.Colonies.Exceptions.FileSaveException;
+import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Hooks.VaultHook;
 import justinDevB.Colonies.Listeners.BukkitEventListener;
 import justinDevB.Colonies.Objects.Citizen;
-import justinDevB.Colonies.Utils.DatabaseUtil;
+import justinDevB.Colonies.Objects.Colony;
 import justinDevB.Colonies.Utils.FileUtil;
 import justinDevB.Colonies.Utils.Messages;
 import justinDevB.Colonies.Utils.Settings;
 import justinDevB.mondocommand.MondoCommand;
+import net.md_5.bungee.api.ChatColor;
 
 public class Colonies extends JavaPlugin {
 
@@ -44,11 +49,11 @@ public class Colonies extends JavaPlugin {
 
 		initListeners();
 
-		//initVault();
+		// initVault();
 
 		loadMode();
-		
-		//DatabaseUtil.init(this);
+
+		// DatabaseUtil.init(this);
 
 	}
 
@@ -87,7 +92,7 @@ public class Colonies extends JavaPlugin {
 			e.printStackTrace();
 		}
 		new Messages();
-		
+
 	}
 
 	/**
@@ -140,6 +145,7 @@ public class Colonies extends JavaPlugin {
 
 	/**
 	 * Plugin Operating Mode
+	 * 
 	 * @author Justin
 	 * @modes NORMAL, DEBUG
 	 *
@@ -161,6 +167,61 @@ public class Colonies extends JavaPlugin {
 			setMode(Mode.DEBUG);
 		else
 			setMode(Mode.NORMAL);
+	}
+
+	@Override
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (cmd.getName().equalsIgnoreCase("accept") && sender instanceof Player) {
+			if (args.length == 0) {
+				sender.sendMessage(ChatColor.GOLD + "Say which invite you want to accept! /accept SomeColony");
+				return false;
+			}
+			String name = args[0];
+			Player player = (Player) sender;
+			Citizen citizen = getCitizen(player.getUniqueId());
+			if (!citizen.hasInvites()) {
+				citizen.sendMessage(ChatColor.RED + "You do not have any pending invites!");
+				return false;
+			}
+
+			for (Colony colony : citizen.getInviteList()) {
+				if (name.equalsIgnoreCase(colony.getName())) {
+					try {
+						citizen.setColony(colony);
+						return true;
+					} catch (PlayerInColonyException e) {
+						citizen.sendMessage(ChatColor.RED + "You are already in a Colony!");
+						citizen.sendMessage(ChatColor.GOLD + "Leave your Colony with /colony leave");
+						return false;
+					}
+				}
+			}
+			return false;
+
+		} else if (cmd.getName().equalsIgnoreCase("decline") && sender instanceof Player) {
+			if (args.length == 0) {
+				sender.sendMessage(ChatColor.GOLD + "Say which invite you want to accept! /accept SomeColony");
+				return false;
+			}
+			String name = args[0];
+			Player player = (Player) sender;
+			Citizen citizen = getCitizen(player.getUniqueId());
+			if (!citizen.hasInvites()) {
+				citizen.sendMessage(ChatColor.RED + "You do not have any pending invites!");
+				return false;
+			}
+
+			for (Colony colony : citizen.getInviteList()) {
+				if (name.equalsIgnoreCase(colony.getName())) {
+					citizen.removeInvite(colony);
+					citizen.sendMessage(
+							String.format(ChatColor.GOLD + "Successfully declined invite to %s", colony.getName()));
+					return true;
+				}
+			}
+			return false;
+		}
+		return false;
 	}
 
 }

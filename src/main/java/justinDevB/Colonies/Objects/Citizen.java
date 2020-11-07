@@ -1,6 +1,8 @@
 package justinDevB.Colonies.Objects;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,6 +14,7 @@ import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Hooks.VaultHook;
+import net.md_5.bungee.api.ChatColor;
 
 public class Citizen {
 
@@ -20,6 +23,7 @@ public class Citizen {
 	private final Player player;
 	private Rank rank = Rank.PLAYER;
 	private Colony colony = null;
+	private List<Colony> invites = new ArrayList<>();
 
 	public Citizen(Colonies cl, Player p) {
 		this.colonies = cl;
@@ -31,6 +35,15 @@ public class Citizen {
 
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(registerEvent);
+	}
+
+	/**
+	 * Do not use this Method, it is used for testing purposes only
+	 */
+	@Deprecated
+	public Citizen() {
+		this.player = null;
+		this.colonies = null;
 	}
 
 	public Player getPlayer() {
@@ -76,7 +89,7 @@ public class Citizen {
 	public void teleportTo(Location loc) {
 		getPlayer().teleport(loc);
 	}
-	
+
 	public void sendMessage(String msg) {
 		getPlayer().sendMessage(msg);
 	}
@@ -89,6 +102,8 @@ public class Citizen {
 	public void setColony(Colony cl) throws PlayerInColonyException {
 		this.colony = cl;
 		cl.addCitizen(this);
+		sendMessage(ChatColor.GREEN + String.format("You have joined %s!", cl.getName()));
+		removeInvite(cl);
 	}
 
 	/**
@@ -143,6 +158,52 @@ public class Citizen {
 	 */
 	public boolean hasEnough(double amount) {
 		return VaultHook.hasEnough(getOfflinePlayer(), amount);
+	}
+
+	/**
+	 * Add a Colony to the invite list for this player
+	 * 
+	 * @param colony
+	 */
+	public void addInvite(Colony colony) {
+		if (!invites.contains(colony)) {
+			invites.add(colony);
+			sendMessage(String.format(
+					ChatColor.GOLD + "%s has invited you to join their Colony! Type /accept %s or /deny %s",
+					colony.getName(), colony.getName(), colony.getName()));
+		}
+	}
+
+	/**
+	 * Check whether player has any Colony Invites
+	 * 
+	 * @return Whether invites is empty or not
+	 */
+	public boolean hasInvites() {
+		// Return the inverse of the state of the List. i.e If invites.isEmtpy == true
+		// we return the inverse so hasInvites returns false
+		return !invites.isEmpty();
+	}
+
+	/**
+	 * Remove an invite to a Colony for this player
+	 * 
+	 * @param colony
+	 */
+	public void removeInvite(Colony colony) {
+		if (invites.contains(colony)) {
+			invites.remove(colony);
+			colony.removeInvite(this);
+		}
+	}
+
+	/**
+	 * Get a list of Colonies that are inviting this Player
+	 * 
+	 * @return List<Colony>
+	 */
+	public List<Colony> getInviteList() {
+		return this.invites;
 	}
 
 	public enum Rank {

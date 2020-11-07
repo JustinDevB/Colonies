@@ -8,7 +8,6 @@ justinDevB\Colonies\ClaimManager.class
 justinDevB\Colonies\Utils\Messages.class
 justinDevB\mondocommand\SubHandler.class
 justinDevB\mondocommand\dynmaic\SubCommandFinder.class
-justinDevB\Colonies\Citizen.class
 justinDevB\Colonies\Colonies.class
 justinDevB\Colonies\Events\PlayerUnRegisterEvent.class
 justinDevB\mondocommand\CallInfo.class
@@ -21,6 +20,7 @@ justinDevB\Colonies\Listeners\BukkitEventListener.class
 justinDevB\mondocommand\FallbackHandler.class
 justinDevB\Colonies\Utils\Settings.class
 justinDevB\Colonies\Utils\DatabaseUtil.class
+justinDevB\Colonies\Objects\Citizen$Rank.class
 justinDevB\mondocommand\MondoCommand.class
 justinDevB\Colonies\Colonies$Mode.class
 justinDevB\Colonies\Hooks\VaultHook.class
@@ -29,8 +29,9 @@ justinDevB\Colonies\Exceptions\ChunkAlreadyClaimedException.class
 justinDevB\Colonies\Utils\FileUtil.class
 justinDevB\Colonies\Events\PlayerRegisterEvent.class
 justinDevB\mondocommand\ChatMagic.class
-justinDevB\Colonies\Citizen$Rank.class
+justinDevB\Colonies\Objects\Citizen.class
 justinDevB\mondocommand\dynmaic\SubCommandFinder$1.class
 justinDevB\Colonies\Utils\DataManager.class
+justinDevB\Colonies\Objects\Colony$1.class
 justinDevB\Colonies\Utils\QueryExecutor.class
 justinDevB\mondocommand\FormatConfig.class

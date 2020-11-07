@@ -43,6 +43,12 @@ public class Commands {
 		call.reply(ChatColor.GREEN + "Amount of Colonies created: " + ColonyManager.getInstance().getColoniesAmount());
 	}
 
+	@Sub(rank = Rank.ADMIN, description = "Info command about player", allowConsole = true)
+	public void playerInfo(CallInfo call) {
+		Citizen citizen = colonies.getCitizen(Bukkit.getPlayer(call.getArg(0)).getUniqueId());
+		call.reply(ChatColor.DARK_GREEN + "Player belongs to: " + citizen.getColony().getName());
+	}
+
 	@Sub(rank = Rank.ADMIN, description = "List all Colonies", allowConsole = true)
 	public void colonieslist(CallInfo call) {
 
@@ -167,4 +173,24 @@ public class Commands {
 		else
 			call.reply("Player does not belong to any colony!");
 	}
+
+	@Sub(rank = Rank.ADMIN, description = "Create a test Colony for testing purposes", minArgs = 1, usage = "(name)", allowConsole = false)
+	public void createTestColony(CallInfo call) {
+		String name = call.getArg(0);
+		Citizen citizen = new Citizen();
+		ColonyManager manager = ColonyManager.getInstance();
+		try {
+			manager.createColony(name, citizen, call.getPlayer().getLocation());
+		} catch (PlayerInColonyException | ChunkAlreadyClaimedException e) {
+			if (e instanceof PlayerInColonyException)
+				call.reply("Already in a Colony!");
+			else if (e instanceof ColonyAlreadyRegisteredException)
+				call.reply("Colony already exists!");
+			else if (e instanceof ChunkAlreadyClaimedException)
+				call.reply("Chunk is already claimed!");
+			return;
+		}
+		call.reply(String.format("Successfully created %s", name));
+	}
+
 }
