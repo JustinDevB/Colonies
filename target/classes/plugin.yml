@@ -3,6 +3,7 @@ main: justinDevB.Colonies.Colonies
 version: 0.0.1-SNAPSHOT
 author: Justin
 api-version: 1.15
+depend: [MineSQLAPI]
 commands:
   colonies:
     description: colonies base command

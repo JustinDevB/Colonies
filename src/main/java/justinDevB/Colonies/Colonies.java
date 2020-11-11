@@ -21,6 +21,7 @@ import justinDevB.Colonies.Hooks.VaultHook;
 import justinDevB.Colonies.Listeners.BukkitEventListener;
 import justinDevB.Colonies.Objects.Citizen;
 import justinDevB.Colonies.Objects.Colony;
+import justinDevB.Colonies.Utils.DatabaseUtil;
 import justinDevB.Colonies.Utils.FileUtil;
 import justinDevB.Colonies.Utils.Messages;
 import justinDevB.Colonies.Utils.Settings;
@@ -54,7 +55,7 @@ public class Colonies extends JavaPlugin {
 
 		loadMode();
 
-		// DatabaseUtil.init(this);
+		DatabaseUtil.init(this);
 
 		initStats();
 
@@ -67,6 +68,7 @@ public class Colonies extends JavaPlugin {
 		} catch (FileSaveException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**

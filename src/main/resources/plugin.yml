@@ -3,6 +3,7 @@ main: ${mainClass}
 version: ${project.version}
 author: ${author}
 api-version: 1.15
+depend: [MineSQLAPI]
 commands:
   colonies:
     description: colonies base command

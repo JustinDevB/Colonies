@@ -1,8 +1,11 @@
 package justinDevB.Colonies.Objects;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,9 +14,11 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import justinDevB.Colonies.Colonies;
+import justinDevB.Colonies.ColonyManager;
 import justinDevB.Colonies.Events.PlayerRegisterEvent;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Hooks.VaultHook;
+import justinDevB.Colonies.Utils.DatabaseUtil;
 import net.md_5.bungee.api.ChatColor;
 
 public class Citizen {
@@ -30,13 +35,14 @@ public class Citizen {
 		this.player = p;
 
 		// TODO: Remove this
-		if (p.getName().equals("justin_393"))
-			setRank(Rank.ADMIN);
+		// if (p.getName().equals("justin_393"))
+		// setRank(Rank.ADMIN);
 
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(registerEvent);
 
-		loadRank();
+		// loadRank();
+		loadPlayer(p);
 	}
 
 	/**
@@ -114,6 +120,9 @@ public class Citizen {
 		cl.addCitizen(this);
 		sendMessage(ChatColor.GREEN + String.format("You have joined %s!", cl.getName()));
 		removeInvite(cl);
+
+		DatabaseUtil.updateDatabase("UPDATE `colonies_players` SET `colony` = '" + cl.getName() + "' WHERE `uuid` = '"
+				+ player.getUniqueId().toString() + "'");
 	}
 
 	/**
@@ -122,6 +131,10 @@ public class Citizen {
 	public void removeFromColony() {
 		getPlayer().sendMessage("You have been removed from " + getColony().getName());
 		this.colony = null;
+
+		DatabaseUtil.updateDatabase("UPDATE `colonies_players` SET `colony` = NULL WHERE `uuid` = '"
+				+ player.getUniqueId().toString() + "'");
+
 	}
 
 	/**
@@ -247,6 +260,10 @@ public class Citizen {
 	 */
 	public void setRank(Rank rank) {
 		this.rank = rank;
+
+		DatabaseUtil.updateDatabase("UPDATE `colonies_players` SET `rank` = '" + rank + "' WHERE `uuid` = '"
+				+ player.getUniqueId().toString() + "'");
+
 	}
 
 	/**
@@ -283,6 +300,48 @@ public class Citizen {
 			// TODO: Load Player Rank from database
 		}
 		setRank(Rank.NOMAD);
+	}
+
+	private void loadPlayer(Player p) {
+		try {
+			ResultSet rs = DatabaseUtil.queryDatabase(
+					"SELECT count(*) FROM `colonies_players` WHERE `uuid` = '" + p.getUniqueId().toString() + "'");
+			rs.next();
+			if (rs.getInt("count(*)") == 0) {
+				// Player connects for first time
+				rank = Rank.NOMAD;
+				DatabaseUtil.updateDatabaseImmediately(
+						"INSERT INTO `colonies_players`(`uuid`, `name`, `lastip`, `colony`, `rank`)" + " VALUES('"
+								+ player.getUniqueId().toString() + "', '" + player.getName() + "', '"
+								+ player.getAddress().getAddress().toString().replace("/", "") + "', NULL, '" + rank
+								+ "')");
+				colonies.getLogger().log(Level.INFO, "Creating database entry for " + player.getName());
+			} else {
+				// Returning player, load their info
+				colonies.getLogger().log(Level.INFO, String.format("Loading %s from database", p.getName()));
+				rs = DatabaseUtil.queryDatabase("SELECT `colony`, `rank` FROM `colonies_players` WHERE `uuid` = '"
+						+ player.getUniqueId().toString() + "'");
+				rs.next();
+				if (!rs.getString("colony").isEmpty()) {
+					Colony colony = ColonyManager.getInstance().getColony(rs.getString("colony"));
+					this.colony = colony;
+					try {
+						colony.addCitizen(this);
+					} catch (PlayerInColonyException e) {
+						e.printStackTrace();
+					}
+				}
+				// Update last IP
+				DatabaseUtil.updateDatabase("UPDATE `colonies_players` SET `lastip` = '"
+						+ player.getAddress().getAddress().toString().replace("/", "") + "' WHERE `uuid` = '"
+						+ player.getUniqueId().toString() + "'");
+			}
+
+		} catch (SQLException e) {
+			colonies.getLogger().log(Level.SEVERE, "Critical failure with database! Shutting down..");
+			e.printStackTrace();
+			Bukkit.getServer().shutdown();
+		}
 	}
 
 	/**

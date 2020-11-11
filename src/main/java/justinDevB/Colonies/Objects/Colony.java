@@ -40,9 +40,8 @@ public class Colony {
 	 */
 	public Colony(String name, Citizen ruler) {
 		this.colonyName = name;
-		this.ruler = ruler;
 		this.spawn = ruler.getLocation();
-		ruler.setRank(Rank.RULER);
+		setRuler(ruler);
 		processQueue();
 	}
 
@@ -56,7 +55,7 @@ public class Colony {
 	@Deprecated
 	public Colony(String name, Citizen ruler, Location loc) {
 		this.colonyName = name;
-		this.ruler = ruler;
+		setRuler(ruler);
 		this.spawn = loc;
 	}
 

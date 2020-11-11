@@ -39,10 +39,24 @@ public class DatabaseUtil {
 		// init tables
 
 		// Entries must be comma seperated and a type defined
+		createTables();
+
+		t.start();
+
+	}
+
+	private static void createTables() {
+		core.getLogger().log(Level.INFO, "Attemtping to create tables");
 		updateDatabase("CREATE TABLE IF NOT EXISTS `colonies_players` (\n" 
-		        + " `uuid` char(36) NOT NULL,\n" 
-				+ " `lastip` varchar(15) DEFAULT NULL\n"
-		        + ") ENGINE=INNODB DEFAULT CHARSET=LATIN1;");
+				+ " `uuid` char(36) NOT NULL,\n"
+				+ " `name` char(16) NOT NULL,\n" 
+				+ " `lastip` varchar(15) DEFAULT NULL,\n"
+				+ " `colony` varchar(20) DEFAULT NULL,\n" 
+				+ " `rank` char(8) DEFAULT NULL \n"
+				+ ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
+
+		updateDatabase("CREATE TABLE IF NOT EXISTS `colonies` (\n" + " `name` char(16) NOT NULL \n"
+				+ ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
 	}
 
 	public static ResultSet queryDatabase(String query) {
@@ -81,6 +95,7 @@ public class DatabaseUtil {
 	public static MineSQL getSql() {
 		return sql;
 	}
+
 }
 
 class QueryExecutor implements Runnable {

@@ -96,11 +96,11 @@
 					<relocations>
 						<relocation>
 							<pattern>de.leonhard</pattern>
-							<shadedPattern>JustinDevB.Colonies</shadedPattern>
+							<shadedPattern>justinDevB.Colonies.Shaded</shadedPattern>
 						</relocation>
 						<relocation>
 							<pattern>org.bstats</pattern>
-							<shadedPattern>JustinDevB.Colonies</shadedPattern>
+							<shadedPattern>justinDevB.Colonies.Shaded</shadedPattern>
 						</relocation>
 					</relocations>
 				</configuration>
