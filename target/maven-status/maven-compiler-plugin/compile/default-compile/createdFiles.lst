@@ -15,6 +15,7 @@ justinDevB\mondocommand\SubCommand.class
 justinDevB\Colonies\Exceptions\ColonyAlreadyRegisteredException.class
 justinDevB\Colonies\Exceptions\FileSaveException.class
 justinDevB\Colonies\Exceptions\ColonyException.class
+justinDevB\Colonies\Exceptions\ColonyMaxClaimException.class
 justinDevB\Colonies\Objects\ChunkClaim.class
 justinDevB\Colonies\Listeners\BukkitEventListener.class
 justinDevB\mondocommand\FallbackHandler.class

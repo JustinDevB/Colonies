@@ -21,7 +21,7 @@ public class Citizen {
 	@SuppressWarnings("unused")
 	private final Colonies colonies;
 	private final Player player;
-	private Rank rank = Rank.PLAYER;
+	private Rank rank = Rank.NOMAD;
 	private Colony colony = null;
 	private List<Colony> invites = new ArrayList<>();
 
@@ -35,6 +35,8 @@ public class Citizen {
 
 		PlayerRegisterEvent registerEvent = new PlayerRegisterEvent(p);
 		Bukkit.getPluginManager().callEvent(registerEvent);
+
+		loadRank();
 	}
 
 	/**
@@ -52,6 +54,14 @@ public class Citizen {
 
 	public String getName() {
 		return getPlayer().getName();
+	}
+
+	public boolean hasPermission(String perm) {
+		return getPlayer().hasPermission(perm);
+	}
+
+	public boolean hasPlayedBefore() {
+		return getPlayer().hasPlayedBefore();
 	}
 
 	private OfflinePlayer getOfflinePlayer() {
@@ -208,11 +218,16 @@ public class Citizen {
 
 	public enum Rank {
 		// TODO: Change these out for Colony specific ranks ex: Mayor, Assitant, etc
-		ADMIN(100), MOD(90), HELPER(1), PLAYER(0);
+		ADMIN(100, true, true), RULER(20, true, true), MOD(15, true, true), CITIZEN(10, false, false),
+		NOMAD(1, false, false);
 		public final int value;
+		public final boolean canClaim;
+		public final boolean canInvite;
 
-		private Rank(int value) {
-			this.value = value;
+		private Rank(int value, boolean canClaim, boolean canInvite) {
+			this.value = value; // Rank hierarchy
+			this.canClaim = canClaim; // Is this rank allowed to claim chunks?
+			this.canInvite = canInvite; // Can this person Invite other players?
 		}
 	}
 
@@ -244,6 +259,30 @@ public class Citizen {
 		if (getRank().value >= rank.value)
 			return true;
 		return false;
+	}
+
+	/**
+	 * Check if player can claim chunks for their Colony
+	 * 
+	 * @return boolean
+	 */
+	public boolean canClaimChunks() {
+		if (this.colony == null)
+			return false;
+		if (getRank().canClaim)
+			return true;
+		return false;
+	}
+
+	private void loadRank() {
+		if (hasPermission("colonies.admin")) {
+			setRank(Rank.ADMIN);
+			return;
+		}
+		if (hasPlayedBefore()) {
+			// TODO: Load Player Rank from database
+		}
+		setRank(Rank.NOMAD);
 	}
 
 	/**

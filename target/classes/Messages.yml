@@ -5,3 +5,4 @@ Errors:
   player_in_colony: "Player is already in a colony!"
   player_not_in_colony: "Player is not in a Colony!"
   colony_already_exists: "Colony already registered!"
+  colony_max_claim: "Colony cannot claim anymore chunks!"

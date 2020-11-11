@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
+import justinDevB.Colonies.Exceptions.ColonyMaxClaimException;
 import justinDevB.Colonies.Objects.ChunkClaim;
 import justinDevB.Colonies.Objects.Colony;
 import justinDevB.Colonies.Utils.Settings;
@@ -94,16 +95,21 @@ public class ClaimManager {
 	 * @param claim
 	 * @param colony
 	 * @throws ChunkAlreadyClaimedException
+	 * @throws ColonyMaxClaimException
 	 */
-	public void addColonyClaim(ChunkClaim claim, Colony colony) throws ChunkAlreadyClaimedException {
-		if (chunkMap.containsKey(claim)) {
-			Bukkit.broadcastMessage(ChatColor.DARK_RED + "Mapping for claim already exists in chunkMap!");
-			throw new ChunkAlreadyClaimedException("Exception in addColonyClaim()");
-		} else {
-			chunkMap.put(claim, colony);
-			addClaim(claim.getChunk());
-			claim.setColony(colony);
-		}
+	public void addColonyClaim(ChunkClaim claim, Colony colony)
+			throws ChunkAlreadyClaimedException, ColonyMaxClaimException {
+		if (colony.canHaveMoreClaims()) {
+			if (chunkMap.containsKey(claim)) {
+				Bukkit.broadcastMessage(ChatColor.DARK_RED + "Mapping for claim already exists in chunkMap!");
+				throw new ChunkAlreadyClaimedException("Exception in addColonyClaim()");
+			} else {
+				chunkMap.put(claim, colony);
+				addClaim(claim.getChunk());
+				claim.setColony(colony);
+			}
+		} else
+			throw new ColonyMaxClaimException(String.format("%s cannot claim anymore chunks!", colony.getName()));
 	}
 
 	/**

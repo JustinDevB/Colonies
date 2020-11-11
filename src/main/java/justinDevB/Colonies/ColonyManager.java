@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.ColonyAlreadyRegisteredException;
+import justinDevB.Colonies.Exceptions.ColonyMaxClaimException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Objects.ChunkClaim;
 import justinDevB.Colonies.Objects.Citizen;
@@ -40,18 +41,19 @@ public class ColonyManager {
 	 * @param location
 	 * @throws ChunkAlreadyClaimedException
 	 * @throws PlayerInColonyException
+	 * @throws ColonyMaxClaimException
 	 */
 	@Deprecated
 	public void createColony(String name, Citizen citizen, Location location)
-			throws ChunkAlreadyClaimedException, PlayerInColonyException {
+			throws ChunkAlreadyClaimedException, PlayerInColonyException, ColonyMaxClaimException {
 		Colony colony = new Colony(name, citizen, location);
 		ChunkClaim claim = new ChunkClaim(location.getWorld(), location.getChunk());
 		manager.addColonyClaim(claim, colony);
 		addColonyToList(colony);
 	}
 
-	public void createColony(String name, Citizen citizen)
-			throws PlayerInColonyException, ColonyAlreadyRegisteredException, ChunkAlreadyClaimedException {
+	public void createColony(String name, Citizen citizen) throws PlayerInColonyException,
+			ColonyAlreadyRegisteredException, ChunkAlreadyClaimedException, ColonyMaxClaimException {
 		if (citizen.hasColony())
 			throw new PlayerInColonyException(String.format("Player is already a member in %s! Tried creating %s",
 					citizen.getColony().getName(), name));
@@ -102,7 +104,7 @@ public class ColonyManager {
 	 */
 	public boolean doesColonyExist(String name) {
 		for (int i = 0; i < allColonies.size(); i++) {
-			if (allColonies.get(i).getName().equals(name))
+			if (allColonies.get(i).getName().equalsIgnoreCase(name))
 				return true;
 		}
 		return false;
@@ -151,7 +153,7 @@ public class ColonyManager {
 	 */
 	public Colony getColony(String name) {
 		for (int i = 0; i < allColonies.size(); i++) {
-			if (allColonies.get(i).getName().equals(name))
+			if (allColonies.get(i).getName().equalsIgnoreCase(name))
 				return allColonies.get(i);
 		}
 		return null;

@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -155,6 +157,15 @@ public class BukkitEventListener implements Listener {
 				return;
 			}
 			if (!claim.getColony().canFireSpread())
+				event.setCancelled(true);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onBlockToFrom(BlockFromToEvent event) throws ChunkNotClaimedException {
+		if (event.getBlock().getType() == Material.LAVA) {
+			Chunk chunk = event.getToBlock().getChunk();
+			if (manager.isChunkClaimed(chunk) && !manager.getClaim(chunk).getColony().canLavaSpread())
 				event.setCancelled(true);
 		}
 	}

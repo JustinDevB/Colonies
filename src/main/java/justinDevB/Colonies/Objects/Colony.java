@@ -14,7 +14,9 @@ import justinDevB.Colonies.ClaimManager;
 import justinDevB.Colonies.Colonies;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
+import justinDevB.Colonies.Objects.Citizen.Rank;
 import justinDevB.Colonies.Utils.Settings;
+import net.md_5.bungee.api.ChatColor;
 
 public class Colony {
 
@@ -24,8 +26,11 @@ public class Colony {
 	private List<Chunk> claims = new ArrayList<>();
 	private Location spawn = null;
 	private Queue<Citizen> pendingInvites = new LinkedList<>();
-	private boolean canFireSpread = false;
+	private boolean canFireSpread = true;
 	private boolean explosions = false;
+	private boolean lavaSpread = true;
+
+	private int maxClaims = 80;
 
 	/**
 	 * Used for creating a new Colony
@@ -37,6 +42,7 @@ public class Colony {
 		this.colonyName = name;
 		this.ruler = ruler;
 		this.spawn = ruler.getLocation();
+		ruler.setRank(Rank.RULER);
 		processQueue();
 	}
 
@@ -99,14 +105,27 @@ public class Colony {
 		return this.colonyName;
 	}
 
+	/**
+	 * Get the Ruler of this Colony
+	 * 
+	 * @return Ruler
+	 */
 	public Citizen getRuler() {
 		return this.ruler;
 	}
 
-	public boolean containsCitizen(Citizen citizen) {
-		if (citizens.contains(citizen))
-			return true;
-		return false;
+	/**
+	 * Set the Ruler of this Colony. Will demote previous Ruler, if exists, to
+	 * Citizen of the Colony
+	 * 
+	 * @param citizen to become Ruler
+	 */
+	public void setRuler(Citizen citizen) {
+		if (this.ruler != null)
+			getRuler().setRank(Rank.CITIZEN);
+		this.ruler = citizen;
+		citizen.setRank(Rank.RULER);
+		citizen.sendMessage(ChatColor.GOLD + String.format("You are now the Ruler of %s!", getName()));
 	}
 
 	/**
@@ -117,9 +136,10 @@ public class Colony {
 	 * @throws PlayerInColonyException
 	 */
 	public void addCitizen(Citizen citizen) throws PlayerInColonyException {
-		if (!citizens.contains(citizen))
+		if (!citizens.contains(citizen)) {
 			citizens.add(citizen);
-		else {
+			citizen.setRank(Rank.CITIZEN);
+		} else {
 			try {
 				throw new PlayerInColonyException(
 						String.format("Player is already in Colony: %s", citizen.getColony().getName()));
@@ -129,6 +149,12 @@ public class Colony {
 		}
 	}
 
+	/**
+	 * Invite Citizen to this Colony
+	 * 
+	 * @param Citizen to Invite
+	 * @throws PlayerInColonyException
+	 */
 	public void inviteCitizen(Citizen citizen) throws PlayerInColonyException {
 		if (citizen.hasColony()) {
 			throw new PlayerInColonyException(
@@ -153,9 +179,26 @@ public class Colony {
 			pendingInvites.remove(citizen);
 	}
 
+	/**
+	 * Remove Citizen from this Colony
+	 * 
+	 * @param Citizen to remove
+	 */
 	public void removeCitizen(Citizen citizen) {
 		if (citizens.contains(citizen))
 			citizens.remove(citizen);
+	}
+
+	/**
+	 * See if a Citizen is a member of this Colony
+	 * 
+	 * @param Citizen to check
+	 * @return Citizenship status
+	 */
+	public boolean containsCitizen(Citizen citizen) {
+		if (citizens.contains(citizen))
+			return true;
+		return false;
 	}
 
 	/**
@@ -174,6 +217,39 @@ public class Colony {
 	 */
 	public List<Chunk> getClaims() {
 		return this.claims;
+	}
+
+	/**
+	 * Get the current number of Claims this Colony owns
+	 * 
+	 * @return claims total
+	 */
+	public int getClaimsAmount() {
+		return this.claims.size();
+	}
+
+	/**
+	 * Get the maximum number of claims this Colony is allowed to have
+	 * 
+	 * @return max claims amount
+	 */
+	public int getMaxClaims() {
+		return this.maxClaims;
+	}
+
+	/**
+	 * Set the maximum number of claims this Colony is allowed to have
+	 * 
+	 * @param amount
+	 */
+	public void setMaxClaims(int amount) {
+		this.maxClaims = amount;
+	}
+
+	public boolean canHaveMoreClaims() {
+		if (getClaimsAmount() < this.maxClaims)
+			return true;
+		return false;
 	}
 
 	/**
@@ -228,6 +304,24 @@ public class Colony {
 	 */
 	public void setExplosions(boolean b) {
 		this.explosions = b;
+	}
+
+	/**
+	 * Get whether or not lava can spread in this Colony
+	 * 
+	 * @return boolean
+	 */
+	public boolean canLavaSpread() {
+		return this.lavaSpread;
+	}
+
+	/**
+	 * Set whether lava can spread in this Colony
+	 * 
+	 * @param boolean
+	 */
+	public void setLavaSpread(boolean b) {
+		this.lavaSpread = b;
 	}
 
 	/**

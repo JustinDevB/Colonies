@@ -11,6 +11,7 @@ import justinDevB.Colonies.ColonyManager;
 import justinDevB.Colonies.Exceptions.ChunkAlreadyClaimedException;
 import justinDevB.Colonies.Exceptions.ChunkNotClaimedException;
 import justinDevB.Colonies.Exceptions.ColonyAlreadyRegisteredException;
+import justinDevB.Colonies.Exceptions.ColonyMaxClaimException;
 import justinDevB.Colonies.Exceptions.PlayerInColonyException;
 import justinDevB.Colonies.Objects.ChunkClaim;
 import justinDevB.Colonies.Objects.Citizen;
@@ -49,7 +50,19 @@ public class Commands {
 		call.reply(ChatColor.DARK_GREEN + "Player belongs to: " + citizen.getColony().getName());
 	}
 
-	@Sub(rank = Rank.ADMIN, description = "List all Colonies", allowConsole = true)
+	@Sub(rank = Rank.ADMIN, description = "Teleport to a Colony Spawn", minArgs = 1, usage = "(Colony)", allowConsole = false)
+	public void teleport(CallInfo call) {
+		ColonyManager colonyManager = ColonyManager.getInstance();
+		String name = call.getArg(0);
+		if (!colonyManager.doesColonyExist(name)) {
+			call.reply(ChatColor.RED + name + " does not exist!");
+			return;
+		}
+		Colony colony = colonyManager.getColony(name);
+		call.getPlayer().teleport(colony.getSpawn());
+	}
+
+	@Sub(rank = Rank.NOMAD, description = "List all Colonies", allowConsole = true)
 	public void colonieslist(CallInfo call) {
 
 		if (manager.getColoniesAmount() == 0) {
@@ -75,13 +88,14 @@ public class Commands {
 		call.reply("Removed colony");
 	}
 
-	@Sub(rank = Rank.ADMIN, description = "Create a colony", minArgs = 1, usage = "(name)", allowConsole = false)
+	@Sub(rank = Rank.NOMAD, description = "Create a colony", minArgs = 1, usage = "(name)", allowConsole = false)
 	public void createColony(CallInfo call) {
 		Citizen citizen = colonies.getCitizen(call.getPlayer().getUniqueId());
 		String name = call.getArg(0);
 		try {
 			manager.createColony(name, citizen);
-		} catch (PlayerInColonyException | ColonyAlreadyRegisteredException | ChunkAlreadyClaimedException e) {
+		} catch (PlayerInColonyException | ColonyAlreadyRegisteredException | ChunkAlreadyClaimedException
+				| ColonyMaxClaimException e) {
 			call.reply("Unable to create colony!");
 			if (e instanceof PlayerInColonyException)
 				call.reply("Already a member of a colony!");
@@ -89,6 +103,11 @@ public class Commands {
 				call.reply(name + " already exists!");
 			else if (e instanceof ChunkAlreadyClaimedException)
 				call.reply("This chunk is already claimed by another Colony!");
+			else if (e instanceof ColonyMaxClaimException) { // If this gets thrown something serious went wrong
+				colonies.getLogger().log(Level.SEVERE,
+						"Colony creation failed because the Colony owns too many chunks?");
+				e.printStackTrace();
+			}
 			return;
 		}
 
@@ -96,7 +115,7 @@ public class Commands {
 
 	}
 
-	@Sub(rank = Rank.ADMIN, description = "Claim a chunk", allowConsole = false)
+	@Sub(rank = Rank.MOD, description = "Claim a chunk", allowConsole = false)
 	public void claim(CallInfo call) {
 		Citizen citizen = colonies.getCitizen(call.getPlayer().getUniqueId());
 		if (!citizen.hasColony()) {
@@ -120,13 +139,15 @@ public class Commands {
 			Colonies.getInstance().getLogger().log(Level.SEVERE,
 					"Chunk already claimed, but was not caught by previous Exceptions!");
 			return;
+		} catch (ColonyMaxClaimException e) {
+			call.reply(ChatColor.RED + "Your Colony cannot claim anymore chunks!");
 		}
 
 		call.reply(ChatColor.GREEN + "Chunk claimed");
 
 	}
 
-	@Sub(rank = Rank.ADMIN, description = "Unclaim a chunk", allowConsole = false)
+	@Sub(rank = Rank.RULER, description = "Unclaim a chunk", allowConsole = false)
 	public void unClaim(CallInfo call) {
 		Citizen citizen = colonies.getCitizen(call.getPlayer().getUniqueId());
 		if (!citizen.hasColony()) {
@@ -154,7 +175,7 @@ public class Commands {
 		call.reply(ChatColor.GREEN + "Removed claim");
 	}
 
-	@Sub(rank = Rank.ADMIN, description = "Teleport to your Colony spawn", allowConsole = false)
+	@Sub(rank = Rank.CITIZEN, description = "Teleport to your Colony spawn", allowConsole = false)
 	public void spawn(CallInfo call) {
 		Citizen citizen = colonies.getCitizen(call.getPlayer().getUniqueId());
 		if (!citizen.hasColony()) {
@@ -174,6 +195,7 @@ public class Commands {
 			call.reply("Player does not belong to any colony!");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Sub(rank = Rank.ADMIN, description = "Create a test Colony for testing purposes", minArgs = 1, usage = "(name)", allowConsole = false)
 	public void createTestColony(CallInfo call) {
 		String name = call.getArg(0);
@@ -181,7 +203,7 @@ public class Commands {
 		ColonyManager manager = ColonyManager.getInstance();
 		try {
 			manager.createColony(name, citizen, call.getPlayer().getLocation());
-		} catch (PlayerInColonyException | ChunkAlreadyClaimedException e) {
+		} catch (PlayerInColonyException | ChunkAlreadyClaimedException | ColonyMaxClaimException e) {
 			if (e instanceof PlayerInColonyException)
 				call.reply("Already in a Colony!");
 			else if (e instanceof ColonyAlreadyRegisteredException)
