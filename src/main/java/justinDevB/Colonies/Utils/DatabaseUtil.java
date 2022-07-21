@@ -55,7 +55,8 @@ public class DatabaseUtil {
 				+ " `rank` char(8) DEFAULT NULL \n"
 				+ ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
 
-		updateDatabase("CREATE TABLE IF NOT EXISTS `colonies` (\n" + " `name` char(16) NOT NULL \n"
+		updateDatabase("CREATE TABLE IF NOT EXISTS `colonies` (\n"
+				+ " `name` char(16) NOT NULL \n"
 				+ ") ENGINE=InnoDB DEFAULT CHARSET=latin1;");
 	}
 
